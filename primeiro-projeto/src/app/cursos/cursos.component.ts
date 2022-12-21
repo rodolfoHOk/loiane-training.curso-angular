@@ -5,4 +5,12 @@ import { Component } from '@angular/core';
   templateUrl: './cursos.component.html',
   styleUrls: ['./cursos.component.css'],
 })
-export class CursosComponent {}
+export class CursosComponent {
+  nomePortal: string;
+
+  cursos: string[] = ['Java', 'Ext JS', 'Angular'];
+
+  constructor() {
+    this.nomePortal = 'https://loiane.training';
+  }
+}
