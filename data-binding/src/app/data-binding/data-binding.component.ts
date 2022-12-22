@@ -30,6 +30,8 @@ export class DataBindingComponent {
 
   nomeDoCurso: string = 'Angular';
 
+  valorInicial: number = 10;
+
   getValor() {
     return 1;
   }
@@ -52,5 +54,9 @@ export class DataBindingComponent {
 
   onMouseOverOut() {
     this.isMouseOver = !this.isMouseOver;
+  }
+
+  onMudouValor(event: { novoValor: number }) {
+    console.log(event.novoValor);
   }
 }
