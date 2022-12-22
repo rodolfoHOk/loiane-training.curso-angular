@@ -1,1 +1,12 @@
 <app-data-binding></app-data-binding>
+
+<app-ciclo [valorInicial]="valor" *ngIf="!deletarCiclo"></app-ciclo>
+<div class="px-5 pb-4 bg-dark text-white property-binding d-flex flex-column">
+  <button class="btn btn-primary w-25" (click)="mudarValor()">
+    Mudar Valor
+  </button>
+
+  <button class="btn btn-primary w-25 mt-2" (click)="destruirCiclo()">
+    Destruir componente ciclo
+  </button>
+</div>
