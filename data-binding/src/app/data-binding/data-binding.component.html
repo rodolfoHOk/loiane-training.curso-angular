@@ -1,6 +1,8 @@
-<section class="p-4 bg-dark text-white property-binding">
+<section
+  class="px-5 py-4 bg-dark text-white property-binding d-flex flex-column"
+>
   <article>
-    <h3>Interpolation / Interpolação</h3>
+    <h3 class="text-info">Interpolation / Interpolação</h3>
     <p>String renderizada com interpolação: {{ url }}</p>
     <p>Resultado de 1 + 1 é: {{ 1 + 1 }}</p>
     <p>Resultado de 1 + 1 não é: {{ 1 + 1 + getValor() }}</p>
@@ -10,19 +12,20 @@
     <img src="{{ urlImagem }}" alt="" />
   </article>
 
-  <article>
-    <h3>Property Binding</h3>
+  <article class="mt-4">
+    <h3 class="text-info">Property Binding</h3>
     <img [src]="urlImagem" alt="" />
-    <img bind-src="urlImagem" alt="" />
+    <br />
+    <img class="mt-2" bind-src="urlImagem" alt="" />
     <!-- [attr.colspan] se usa quando não existe uma propriedade no elemento, no caso colspan -->
   </article>
 
-  <article>
-    <h3>Class e Style Binding</h3>
+  <article class="mt-4">
+    <h3 class="text-info">Class Binding e Style Binding</h3>
     <div>
       Selecione uma classe:
 
-      <select #classe (change)="(0)">
+      <select #classe class="form-select w-25" (change)="(0)">
         <option value="alert-success">Sucesso</option>
         <option value="alert-info">Info</option>
         <option value="alert-warning">Alerta</option>
@@ -78,8 +81,8 @@
     </div>
   </article>
 
-  <article>
-    <h3>Event Binding</h3>
+  <article class="mt-4">
+    <h3 class="text-info">Event Binding</h3>
     <div>
       <!-- <button class="btn btn-primary" (click)="botaoClicado()">
         Me clique!
@@ -93,13 +96,14 @@
 
       <input
         type="text"
+        class="form-control w-25"
         (keyup)="onKeyUp($event)"
         (keyup.enter)="salvarValor(campoInput.value)"
         (blur)="salvarValor(campoInput.value)"
         #campoInput
       />
 
-      <p>Valor atual: {{ valorAtual }}</p>
+      <p class="mt-2">Valor atual: {{ valorAtual }}</p>
 
       <p>Valor salvo: {{ valorSalvo }}</p>
 
@@ -111,4 +115,6 @@
       >
     </div>
   </article>
+
+  <app-meu-form></app-meu-form>
 </section>

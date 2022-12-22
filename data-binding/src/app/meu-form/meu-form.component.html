@@ -1,0 +1,39 @@
+<article class="mt-4">
+  <h3 class="text-info">Two-way Data Binding</h3>
+  <div>
+    <input
+      class="form-control w-25"
+      type="text"
+      [value]="nome"
+      (input)="nome = inputNome.value"
+      #inputNome
+    />
+
+    <input
+      type="text"
+      class="form-control w-25 mt-2"
+      [ngModel]="nome"
+      (ngModelChange)="nome = $event"
+    />
+
+    <input type="text" class="form-control w-25 mt-2" [(ngModel)]="nome" />
+
+    <input type="text" class="form-control w-25 mt-2" bindon-ngModel="nome" />
+
+    <p class="mt-2">Você digitou o nome: {{ nome }}</p>
+  </div>
+
+  <div class="mt-1">
+    <p>
+      Meu nome é {{ pessoa.nome }} e tenho {{ pessoa.idade }} anos de idade.
+    </p>
+
+    <input class="form-control w-25" type="text" [(ngModel)]="pessoa.nome" />
+
+    <input
+      class="form-control w-25 mt-2"
+      type="number"
+      [(ngModel)]="pessoa.idade"
+    />
+  </div>
+</article>
