@@ -1,7 +1,13 @@
 <div>
   <div class="input-group w-25">
     <button class="btn btn-primary" (click)="decrementa()">-</button>
-    <input type="number" class="form-control" readonly [value]="valor" />
+    <input
+      type="number"
+      class="form-control"
+      readonly
+      [value]="valor"
+      #campoInput
+    />
     <button class="btn btn-primary" (click)="incrementa()">+</button>
   </div>
 </div>
