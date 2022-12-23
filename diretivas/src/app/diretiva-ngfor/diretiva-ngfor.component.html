@@ -1,9 +1,17 @@
 <section class="px-4 py-2 bg-dark text-white">
-  <h3 class="fw-bold">*ngFor</h3>
+  <h3 class="fw-bold fs-5">*ngFor</h3>
 
   <ul>
     <li *ngFor="let curso of cursos; let i = index">
       {{ i + 1 }} - {{ curso }}
     </li>
+  </ul>
+
+  <h4 class="fw-semibold mt-2">substituindo * pelo ng-template</h4>
+
+  <ul>
+    <ng-template ngFor let-curso [ngForOf]="cursos" let-i="index">
+      <li>{{ i + 1 }} - {{ curso }}</li>
+    </ng-template>
   </ul>
 </section>

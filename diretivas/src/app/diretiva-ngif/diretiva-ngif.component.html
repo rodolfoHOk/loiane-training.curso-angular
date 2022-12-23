@@ -1,5 +1,5 @@
 <section class="px-4 py-2 bg-dark text-white">
-  <h3 class="fw-bold">*ngIf</h3>
+  <h3 class="fw-bold fs-5">*ngIf</h3>
 
   <div *ngIf="cursos.length > 0">Lista de cursos aqui.</div>
 
@@ -17,9 +17,21 @@
     Mostrar ou esconder cursos
   </button>
 
-  <h3 class="fw-bold mt-4">hidden como alternativa</h3>
+  <h4 class="fw-semibold mt-4">hidden como alternativa</h4>
 
   <div [hidden]="!mostrarCursos">Lista de cursos aqui.</div>
 
   <div [hidden]="mostrarCursos">Não existem cursos para serem listados.</div>
+</section>
+
+<section class="px-4 py-2 bg-dark text-white">
+  <h3 class="fw-bold fs-5">Por que? o * nas diretivas</h3>
+
+  <h4 class="fw-semibold mt-2">substituindo * pelo ng-template</h4>
+
+  <ng-template [ngIf]="mostrarCursos">
+    <div>Lista de cursos aqui.</div>
+  </ng-template>
+
+  <!-- <div template="mostrarCursos">Lista de cursos aqui.</div> // não funciona mais -->
 </section>
