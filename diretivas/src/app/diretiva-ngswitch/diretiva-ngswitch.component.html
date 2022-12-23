@@ -1,0 +1,58 @@
+<section class="px-4 py-2 bg-dark text-white">
+  <h3 class="fw-bold">*ngSwitch</h3>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">ngSwitch</a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [class.active]="aba === 'home'"
+              (click)="aba = 'home'"
+              >Home</a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [class.active]="aba === 'mapa'"
+              (click)="aba = 'mapa'"
+              >Mapa</a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [class.active]="aba === 'lista'"
+              (click)="aba = 'lista'"
+              >Lista</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" [ngSwitch]="aba">
+    <p *ngSwitchCase="'mapa'">Modo Mapa ativado</p>
+    <p *ngSwitchCase="'lista'">Modo Lista ativado</p>
+    <p *ngSwitchDefault>Home</p>
+  </div>
+</section>
