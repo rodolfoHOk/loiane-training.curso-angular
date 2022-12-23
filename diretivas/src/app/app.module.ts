@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { TestExternalLibsComponent } from './test-external-libs/test-external-libs.component';
 import { DiretivaNgswitchComponent } from './diretiva-ngswitch/diretiva-ngswitch.component';
+import { DiretivaNgforComponent } from './diretiva-ngfor/diretiva-ngfor.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { DiretivaNgswitchComponent } from './diretiva-ngswitch/diretiva-ngswitch
     DiretivaNgifComponent,
     TestExternalLibsComponent,
     DiretivaNgswitchComponent,
+    DiretivaNgforComponent,
   ],
   imports: [BrowserModule, BrowserAnimationsModule, MatExpansionModule],
   providers: [],

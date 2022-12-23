@@ -1,0 +1,9 @@
+<section class="px-4 py-2 bg-dark text-white">
+  <h3 class="fw-bold">*ngFor</h3>
+
+  <ul>
+    <li *ngFor="let curso of cursos; let i = index">
+      {{ i + 1 }} - {{ curso }}
+    </li>
+  </ul>
+</section>
