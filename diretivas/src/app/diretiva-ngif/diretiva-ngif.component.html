@@ -1,1 +1,25 @@
-<p>diretiva-ngif works!</p>
+<section class="px-4 py-2 bg-dark text-white">
+  <h3 class="fw-bold">*ngIf</h3>
+
+  <div *ngIf="cursos.length > 0">Lista de cursos aqui.</div>
+
+  <div *ngIf="cursos.length === 0">Não existem cursos para serem listados.</div>
+
+  <br />
+
+  <div *ngIf="mostrarCursos">Lista de cursos aqui.</div>
+
+  <div *ngIf="!mostrarCursos">Não existem cursos para serem listados.</div>
+
+  <br />
+
+  <button (click)="onMostrarCursos()" class="btn btn-primary">
+    Mostrar ou esconder cursos
+  </button>
+
+  <h3 class="fw-bold mt-4">hidden como alternativa</h3>
+
+  <div [hidden]="!mostrarCursos">Lista de cursos aqui.</div>
+
+  <div [hidden]="mostrarCursos">Não existem cursos para serem listados.</div>
+</section>

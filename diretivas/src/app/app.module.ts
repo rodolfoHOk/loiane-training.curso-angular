@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { DiretivaNgifComponent } from './diretiva-ngif/diretiva-ngif.component';
-import { TesteComponent } from './teste/teste.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { TestExternalLibsComponent } from './test-external-libs/test-external-libs.component';
@@ -12,7 +11,6 @@ import { TestExternalLibsComponent } from './test-external-libs/test-external-li
   declarations: [
     AppComponent,
     DiretivaNgifComponent,
-    TesteComponent,
     TestExternalLibsComponent,
   ],
   imports: [BrowserModule, BrowserAnimationsModule, MatExpansionModule],

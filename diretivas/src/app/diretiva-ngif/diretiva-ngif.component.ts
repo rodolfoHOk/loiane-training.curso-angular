@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component } from '@angular/core';
 
 @Component({
@@ -5,4 +6,12 @@ import { Component } from '@angular/core';
   templateUrl: './diretiva-ngif.component.html',
   styleUrls: ['./diretiva-ngif.component.scss'],
 })
-export class DiretivaNgifComponent {}
+export class DiretivaNgifComponent {
+  cursos: string[] = ['Angular'];
+
+  mostrarCursos: boolean = false;
+
+  onMostrarCursos() {
+    this.mostrarCursos = !this.mostrarCursos;
+  }
+}
