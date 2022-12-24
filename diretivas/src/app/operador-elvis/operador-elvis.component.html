@@ -1,0 +1,24 @@
+<section class="px-4 py-2 bg-dark text-white">
+  <h3 class="fw-bold fs-5">Operador Elvis</h3>
+
+  <p>Descrição: {{ tarefa.descricao }}</p>
+
+  <h4 class="fw-semibold">Sem Operador</h4>
+
+  <p>
+    Responsável:
+    {{ tarefa.responsavel !== null ? tarefa.responsavel.nome : "" }}
+  </p>
+
+  <h4 class="fw-semibold">Com Operador</h4>
+
+  <p>
+    Responsável:
+    {{ tarefa.responsavel?.nome }}
+  </p>
+
+  <p>
+    Responsável:
+    {{ tarefa2.responsavel?.usuario?.nome }}
+  </p>
+</section>
