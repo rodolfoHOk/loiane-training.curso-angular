@@ -24,4 +24,20 @@
   >
     Texto com highlight com cores customizadas
   </p>
+
+  <h4 class="fw-semibold">Diretiva customizada de estrutura</h4>
+
+  <div *ngIf="mostrarCursos">Lista de cursos aqui.</div>
+
+  <div *appNgElse="mostrarCursos">Não existem cursos para serem listados.</div>
+
+  <br />
+
+  <button (click)="onMostrarCursos()" class="btn btn-primary">
+    Mostrar ou esconder cursos
+  </button>
+
+  <ng-template [appNgElse]="mostrarCursos">
+    <div class="mt-2">Não existem cursos para serem listados.</div>
+  </ng-template>
 </section>
