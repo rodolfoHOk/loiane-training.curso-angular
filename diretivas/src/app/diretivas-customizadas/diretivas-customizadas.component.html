@@ -13,4 +13,15 @@
   <h4 class="fw-semibold">HostListener e HostBinding</h4>
 
   <p appHighlightMouse>Texto com highlight quando passo o mouse</p>
+
+  <h4 class="fw-semibold">Input e Property binding</h4>
+
+  <p
+    [appHighlight]="'red'"
+    [defaultColor]="'gray'"
+    [defaultTextColor]="'black'"
+    [highlightTextColor]="'white'"
+  >
+    Texto com highlight com cores customizadas
+  </p>
 </section>
