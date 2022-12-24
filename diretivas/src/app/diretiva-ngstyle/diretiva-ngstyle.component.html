@@ -1,0 +1,37 @@
+<section class="px-4 py-2 bg-dark text-white">
+  <h3 class="fw-bold fs-5">[ngStyle]</h3>
+
+  <h4 class="fw-semibold">Property binding</h4>
+
+  <button
+    class="btn mb-2"
+    [style.backgroundColor]="ativo ? 'blue' : 'gray'"
+    [style.color]="ativo ? 'white' : 'black'"
+    [style.fontWeight]="ativo ? 'bold' : 'normal'"
+    [style.fontSize]="tamanhoFonte + 'px'"
+    (click)="mudarAtivo()"
+  >
+    Mudar atributo ativo
+  </button>
+
+  <input
+    class="form-control w-25 mb-2"
+    type="text"
+    [(ngModel)]="tamanhoFonte"
+  />
+
+  <h4 class="fw-semibold">Diretiva</h4>
+
+  <button
+    class="btn mb-2"
+    [ngStyle]="{
+      backgroundColor: ativo ? 'blue' : 'gray',
+      color: ativo ? 'white' : 'black',
+      fontWeight: ativo ? 'bold' : 'normal',
+      fontSize: tamanhoFonte + 'px'
+    }"
+    (click)="mudarAtivo()"
+  >
+    Mudar atributo ativo
+  </button>
+</section>
