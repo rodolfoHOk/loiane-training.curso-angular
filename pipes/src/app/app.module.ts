@@ -9,11 +9,12 @@ import { CamelCasePipe } from './pipes/camel-case.pipe';
 import { SettingsService } from './settings.service';
 import { FiltroArrayPipe } from './pipes/filtro-array.pipe';
 import { FormsModule } from '@angular/forms';
+import { FiltroArrayImpuroPipe } from './pipes/filtro-array-impuro.pipe';
 
 registerLocaleData(localePt);
 
 @NgModule({
-  declarations: [AppComponent, PipesComponent, CamelCasePipe, FiltroArrayPipe],
+  declarations: [AppComponent, PipesComponent, CamelCasePipe, FiltroArrayPipe, FiltroArrayImpuroPipe],
   imports: [BrowserModule, FormsModule],
   providers: [
     // {

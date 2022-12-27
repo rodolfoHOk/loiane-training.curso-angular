@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'filtroArray',
 })
 export class FiltroArrayPipe implements PipeTransform {
-  transform(value: string[], ...args: string[]): string[] {
+  transform(value: string[], ...args: any[]): string[] {
     if (value.length === 0 || args.length === 0) {
       return value;
     }

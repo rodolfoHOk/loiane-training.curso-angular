@@ -17,7 +17,24 @@
 <input type="text" #novoValor />
 <button (click)="addCurso(novoValor.value)">Adicionar curso</button>
 
+<h3>Pipe Puro</h3>
+
 <ul>
   <!-- não faça isso com este tipo de filtro, somente exemplo -->
+  <!-- não use pipe para ordenação e nem para filtros em array -->
   <li *ngFor="let liv of livros | filtroArray : filtro">{{ liv }}</li>
+</ul>
+
+<h3>Pipe Impuro</h3>
+
+<ul>
+  <!-- não faça isso com este tipo de filtro, somente exemplo -->
+  <!-- não use pipe para ordenação e nem para filtros em array -->
+  <li *ngFor="let liv of livros | filtroArrayImpuro : filtro">{{ liv }}</li>
+</ul>
+
+<h3>Maneira correta de fazer filtros nos projetos</h3>
+
+<ul>
+  <li *ngFor="let liv of obterCursos()">{{ liv }}</li>
 </ul>
