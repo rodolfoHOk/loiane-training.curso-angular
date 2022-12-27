@@ -14,4 +14,13 @@ export class PipesComponent {
     dataLancamento: new Date(2014, 10, 28),
     url: 'https://a.co/d/4x3oWhv',
   };
+
+  livros: string[] = ['Angular', 'Java'];
+
+  filtro: string = '';
+
+  addCurso(valor: string) {
+    console.log(valor);
+    this.livros.push(valor);
+  }
 }
