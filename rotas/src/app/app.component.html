@@ -1,1 +1,13 @@
-<router-outlet></router-outlet>
+<app-header (sidenavToggle)="drawer.toggle()"></app-header>
+
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <app-nav-list></app-nav-list>
+  </mat-drawer>
+
+  <div class="content">
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</mat-drawer-container>

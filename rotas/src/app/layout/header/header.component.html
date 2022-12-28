@@ -1,0 +1,9 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button *ngIf="isXSmallScreen" (click)="onMenuClick()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span routerLink="">Rotas</span>
+
+  <app-nav-list [isHorizontal]="true" *ngIf="!isXSmallScreen"></app-nav-list>
+</mat-toolbar>
