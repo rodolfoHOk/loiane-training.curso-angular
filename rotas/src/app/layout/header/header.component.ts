@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Input() idCurso: string = '';
+  @Input() idCursoChangeEvent?: EventEmitter<Event>;
 
   @Output() sidenavToggle = new EventEmitter();
 

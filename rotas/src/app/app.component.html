@@ -1,11 +1,11 @@
 <app-header
   (sidenavToggle)="drawer.toggle()"
-  [idCurso]="idCurso.value"
+  [idCursoChangeEvent]="idCursoChangeEvent"
 ></app-header>
 
 <mat-drawer-container class="container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side">
-    <app-nav-list [idCurso]="idCurso.value"></app-nav-list>
+    <app-nav-list [idCursoChangeEvent]="idCursoChangeEvent"></app-nav-list>
   </mat-drawer>
 
   <div class="content">
@@ -15,7 +15,12 @@
       <form>
         <mat-form-field>
           <mat-label>Entre com o ID do curso</mat-label>
-          <input type="text" matInput #idCurso />
+          <input
+            type="text"
+            matInput
+            #idCurso
+            (change)="onIdCursoChange($event)"
+          />
         </mat-form-field>
       </form>
     </main>

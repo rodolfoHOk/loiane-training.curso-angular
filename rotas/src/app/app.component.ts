@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   showFiller = false;
+
+  @Output() idCursoChangeEvent = new EventEmitter();
+
+  onIdCursoChange(event: Event) {
+    this.idCursoChangeEvent.emit(event);
+  }
 }
