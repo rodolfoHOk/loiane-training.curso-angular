@@ -8,12 +8,10 @@
     <app-nav-list [idCursoChangeEvent]="idCursoChangeEvent"></app-nav-list>
   </mat-drawer>
 
-  <div class="content">
-    <main>
-      <router-outlet></router-outlet>
-
+  <mat-card class="content">
+    <mat-card-content>
       <form>
-        <mat-form-field>
+        <mat-form-field [style.width.%]="100">
           <mat-label>Entre com o ID do curso</mat-label>
           <input
             type="text"
@@ -23,6 +21,8 @@
           />
         </mat-form-field>
       </form>
-    </main>
-  </div>
+
+      <router-outlet></router-outlet>
+    </mat-card-content>
+  </mat-card>
 </mat-drawer-container>
