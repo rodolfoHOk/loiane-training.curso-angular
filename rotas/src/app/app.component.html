@@ -1,13 +1,23 @@
-<app-header (sidenavToggle)="drawer.toggle()"></app-header>
+<app-header
+  (sidenavToggle)="drawer.toggle()"
+  [idCurso]="idCurso.value"
+></app-header>
 
 <mat-drawer-container class="container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side">
-    <app-nav-list></app-nav-list>
+    <app-nav-list [idCurso]="idCurso.value"></app-nav-list>
   </mat-drawer>
 
   <div class="content">
     <main>
       <router-outlet></router-outlet>
+
+      <form>
+        <mat-form-field>
+          <mat-label>Entre com o ID do curso</mat-label>
+          <input type="text" matInput #idCurso />
+        </mat-form-field>
+      </form>
     </main>
   </div>
 </mat-drawer-container>

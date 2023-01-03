@@ -7,4 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class NavListComponent {
   @Input() isHorizontal?: boolean = false;
+
+  @Input() idCurso: string = '';
 }

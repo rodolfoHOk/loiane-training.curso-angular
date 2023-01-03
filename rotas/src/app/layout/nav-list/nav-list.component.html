@@ -10,7 +10,20 @@
   <a mat-list-item routerLink="login" routerLinkActive="active">
     <span>Login</span>
   </a>
-  <a mat-list-item routerLink="cursos" routerLinkActive="active">
+  <a
+    mat-list-item
+    routerLink="cursos"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
     <span>Cursos</span>
+  </a>
+  <a
+    mat-list-item
+    [routerLink]="['cursos', idCurso]"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    <span>Curso com ID</span>
   </a>
 </mat-nav-list>

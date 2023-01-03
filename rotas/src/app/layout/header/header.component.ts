@@ -1,6 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +7,8 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  @Input() idCurso: string = '';
+
   @Output() sidenavToggle = new EventEmitter();
 
   constructor(private breakpointObserver: BreakpointObserver) {}

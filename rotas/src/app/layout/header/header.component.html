@@ -5,5 +5,9 @@
 
   <span routerLink="">Rotas</span>
 
-  <app-nav-list [isHorizontal]="true" *ngIf="!isXSmallScreen"></app-nav-list>
+  <app-nav-list
+    [isHorizontal]="true"
+    *ngIf="!isXSmallScreen"
+    [idCurso]="idCurso"
+  ></app-nav-list>
 </mat-toolbar>
