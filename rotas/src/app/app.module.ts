@@ -36,10 +36,10 @@ import { CursoNaoEncontradoComponent } from './curso-nao-encontrado/curso-nao-en
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     LayoutModule,
+    AppRoutingModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
