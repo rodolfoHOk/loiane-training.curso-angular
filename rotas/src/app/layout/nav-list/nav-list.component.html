@@ -1,11 +1,16 @@
 <mat-nav-list [class]="isHorizontal ? 'list-horizontal' : ''">
-  <a mat-list-item routerLink="/">
+  <a
+    mat-list-item
+    routerLink=""
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
     <span>Home</span>
   </a>
-  <a mat-list-item routerLink="/login">
+  <a mat-list-item routerLink="login" routerLinkActive="active">
     <span>Login</span>
   </a>
-  <a mat-list-item routerLink="/cursos">
+  <a mat-list-item routerLink="cursos" routerLinkActive="active">
     <span>Cursos</span>
   </a>
 </mat-nav-list>
