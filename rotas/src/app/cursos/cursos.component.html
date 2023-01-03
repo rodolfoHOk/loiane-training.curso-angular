@@ -1,5 +1,7 @@
 <h2>Lista de cursos</h2>
 
+<p>Página: {{ pagina }}</p>
+
 <mat-nav-list>
   <a
     mat-list-item
@@ -9,3 +11,7 @@
     {{ curso.nome }}
   </a>
 </mat-nav-list>
+
+<button mat-raised-button color="primary" (click)="proximaPagina()">
+  Próxima página
+</button>
