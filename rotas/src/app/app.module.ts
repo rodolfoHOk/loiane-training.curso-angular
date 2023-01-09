@@ -16,29 +16,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { CursosComponent } from './cursos/cursos.component';
+
 import { HeaderComponent } from './layout/header/header.component';
 import { NavListComponent } from './layout/nav-list/nav-list.component';
-import { CursoDetalheComponent } from './curso-detalhe/curso-detalhe.component';
-import { CursosService } from './cursos/cursos.service';
-import { CursoNaoEncontradoComponent } from './curso-nao-encontrado/curso-nao-encontrado.component';
+import { CursosModule } from './cursos/cursos.module';
+import { AlunosComponent } from './alunos/alunos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    CursosComponent,
     HeaderComponent,
     NavListComponent,
-    CursoDetalheComponent,
-    CursoNaoEncontradoComponent,
+    AlunosComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     LayoutModule,
+    CursosModule,
     AppRoutingModule,
     MatToolbarModule,
     MatIconModule,
@@ -48,7 +46,7 @@ import { CursoNaoEncontradoComponent } from './curso-nao-encontrado/curso-nao-en
     MatInputModule,
     MatCardModule,
   ],
-  providers: [CursosService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
