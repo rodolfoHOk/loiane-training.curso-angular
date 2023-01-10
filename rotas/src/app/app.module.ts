@@ -20,6 +20,9 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { NavListComponent } from './layout/nav-list/nav-list.component';
 import { AuthService } from './login/auth.service';
+import { AuthGuard } from './guards/auth.guard';
+import { CursosGuard } from './guards/cursos.guard';
+import { AlunosGuard } from './guards/alunos.guard';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,7 @@ import { AuthService } from './login/auth.service';
     MatInputModule,
     MatCardModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard, CursosGuard, AlunosGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
