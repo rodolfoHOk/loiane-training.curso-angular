@@ -1,11 +1,15 @@
 <app-header
   (sidenavToggle)="drawer.toggle()"
   [idCursoChangeEvent]="idCursoChangeEvent"
+  *ngIf="mostrarMenu"
 ></app-header>
 
 <mat-drawer-container class="container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side">
-    <app-nav-list [idCursoChangeEvent]="idCursoChangeEvent"></app-nav-list>
+    <app-nav-list
+      [idCursoChangeEvent]="idCursoChangeEvent"
+      *ngIf="mostrarMenu"
+    ></app-nav-list>
   </mat-drawer>
 
   <mat-card class="content">
