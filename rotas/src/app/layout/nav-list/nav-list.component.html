@@ -7,9 +7,11 @@
   >
     <span>Home</span>
   </a>
+
   <a mat-list-item routerLink="login" routerLinkActive="active">
     <span>Login</span>
   </a>
+
   <a
     mat-list-item
     routerLink="cursos"
@@ -19,6 +21,7 @@
   >
     <span>Cursos</span>
   </a>
+
   <a
     mat-list-item
     [routerLink]="['cursos', idCurso]"
@@ -26,5 +29,14 @@
     [routerLinkActiveOptions]="{ exact: true }"
   >
     <span>Curso com ID</span>
+  </a>
+
+  <a
+    mat-list-item
+    routerLink="alunos"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    <span>Alunos</span>
   </a>
 </mat-nav-list>

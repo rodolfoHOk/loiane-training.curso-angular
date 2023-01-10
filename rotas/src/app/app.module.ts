@@ -20,7 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { NavListComponent } from './layout/nav-list/nav-list.component';
 import { CursosModule } from './cursos/cursos.module';
-import { AlunosComponent } from './alunos/alunos.component';
+import { AlunosModule } from './alunos/alunos.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,6 @@ import { AlunosComponent } from './alunos/alunos.component';
     LoginComponent,
     HeaderComponent,
     NavListComponent,
-    AlunosComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +36,7 @@ import { AlunosComponent } from './alunos/alunos.component';
     FormsModule,
     LayoutModule,
     CursosModule,
+    AlunosModule,
     AppRoutingModule,
     MatToolbarModule,
     MatIconModule,
