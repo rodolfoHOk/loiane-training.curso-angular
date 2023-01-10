@@ -19,8 +19,6 @@ import { LoginComponent } from './login/login.component';
 
 import { HeaderComponent } from './layout/header/header.component';
 import { NavListComponent } from './layout/nav-list/nav-list.component';
-import { CursosModule } from './cursos/cursos.module';
-import { AlunosModule } from './alunos/alunos.module';
 
 @NgModule({
   declarations: [
@@ -35,8 +33,6 @@ import { AlunosModule } from './alunos/alunos.module';
     BrowserAnimationsModule,
     FormsModule,
     LayoutModule,
-    CursosModule,
-    AlunosModule,
     AppRoutingModule,
     MatToolbarModule,
     MatIconModule,
