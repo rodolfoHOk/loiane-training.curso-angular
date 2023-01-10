@@ -1,1 +1,9 @@
-<p>aluno-detalhe works!</p>
+<h3>Detalhes do aluno</h3>
+
+<p>ID: {{ aluno.id }}</p>
+<p>Nome: {{ aluno.nome }}</p>
+<p>E-mail: {{ aluno.email }}</p>
+
+<button mat-raised-button color="primary" (click)="editarContato()">
+  Editar
+</button>

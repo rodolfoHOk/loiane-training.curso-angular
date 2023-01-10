@@ -1,1 +1,40 @@
-<p>aluno-form works!</p>
+<h3>Cadastrar / Editar aluno</h3>
+
+<form>
+  <mat-form-field appearance="fill">
+    <mat-label>ID</mat-label>
+    <input
+      matInput
+      id="id"
+      name="id"
+      type="text"
+      placeholder="1"
+      [(ngModel)]="aluno.id"
+      disabled
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Nome</mat-label>
+    <input
+      matInput
+      id="nome"
+      name="nome"
+      type="text"
+      placeholder="João Batista"
+      [(ngModel)]="aluno.nome"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>E-mail</mat-label>
+    <input
+      matInput
+      id="email"
+      name="email"
+      type="email"
+      placeholder="joaobatista@email.com"
+      [(ngModel)]="aluno.email"
+    />
+  </mat-form-field>
+</form>
