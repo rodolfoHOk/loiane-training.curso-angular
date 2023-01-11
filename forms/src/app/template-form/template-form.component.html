@@ -9,7 +9,11 @@
       placeholder="Nome"
       [ngModel]="usuario.nome"
       required
+      #nome
     />
+    <!-- <div>
+      {{ nome.className }}
+    </div> -->
   </div>
 
   <div class="mb-3">
@@ -24,10 +28,6 @@
       required
       email
     />
-    <!-- Angular 2 não possui "email" validator, já Angular 4+ possui
-      Abaixo como seria a validação de email no Angular 2 usando "pattern":
-      pattern="[a-z0-9!#$%&'*+/=?^_‘{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_‘{|}~-]+)*@
-      (?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" -->
   </div>
 
   <button type="submit" class="btn btn-primary">Submeter</button>

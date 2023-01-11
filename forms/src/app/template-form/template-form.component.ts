@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Form, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-template-form',
@@ -8,8 +8,8 @@ import { Form, NgForm } from '@angular/forms';
 })
 export class TemplateFormComponent {
   usuario = {
-    nome: 'Rodolfo',
-    email: 'rodolfo@email.com',
+    nome: '',
+    email: '',
   };
 
   onSubmit(form: NgForm) {
