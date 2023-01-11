@@ -15,6 +15,7 @@ export class AlunoFormComponent implements OnInit, OnDestroy {
     email: '',
   };
   subscription?: Subscription;
+  private formMudou: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -33,5 +34,22 @@ export class AlunoFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+  onInput() {
+    this.formMudou = true;
+    console.log('mudou');
+  }
+
+  podeMudarRota() {
+    if (this.formMudou) {
+      return confirm('Tem certeza que deseja sair desta página');
+    }
+
+    return true;
+  }
+
+  podeDesativar() {
+    return this.podeMudarRota();
   }
 }
