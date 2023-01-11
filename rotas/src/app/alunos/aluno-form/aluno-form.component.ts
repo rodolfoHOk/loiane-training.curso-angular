@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IFormCanDeactivate } from 'src/app/guards/iform-candeactivate';
+import { Aluno } from '../aluno';
 import { AlunosService } from '../alunos.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { AlunosService } from '../alunos.service';
 export class AlunoFormComponent
   implements OnInit, OnDestroy, IFormCanDeactivate
 {
-  aluno: { id: number; nome: string; email: string } = {
+  aluno: Aluno = {
     id: 0,
     nome: '',
     email: '',
@@ -30,7 +31,7 @@ export class AlunoFormComponent
       let id = params['id'];
 
       if (id) {
-        this.aluno = this.alunoService.getAluno(Number(id));
+        this.aluno = this.alunoService.getAluno(Number(id))!;
       }
     });
   }

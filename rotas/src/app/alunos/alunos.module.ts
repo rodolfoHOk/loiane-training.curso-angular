@@ -14,6 +14,7 @@ import { AlunoDetalheComponent } from './aluno-detalhe/aluno-detalhe.component';
 import { AlunosService } from './alunos.service';
 import { AlunosRoutingModule } from './alunos-routing.module';
 import { AlunosDeactivateGuard } from '../guards/alunos-deactivate.guard';
+import { AlunoDetalheResolver } from './guards/aluno-detalhe.resolver';
 
 @NgModule({
   declarations: [AlunosComponent, AlunoFormComponent, AlunoDetalheComponent],
@@ -27,6 +28,6 @@ import { AlunosDeactivateGuard } from '../guards/alunos-deactivate.guard';
     MatInputModule,
     MatButtonModule,
   ],
-  providers: [AlunosService, AlunosDeactivateGuard],
+  providers: [AlunosService, AlunosDeactivateGuard, AlunoDetalheResolver],
 })
 export class AlunosModule {}

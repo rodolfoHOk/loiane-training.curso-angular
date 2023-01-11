@@ -24,6 +24,8 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    console.log('guarda de rota - auth');
+
     if (this.authService.usuarioEstaAutenticado()) {
       return true;
     }
