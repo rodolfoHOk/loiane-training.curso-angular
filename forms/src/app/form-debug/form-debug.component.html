@@ -1,0 +1,20 @@
+<div class="mt-4" *ngIf="form">
+  <div>
+    <h5>Detalhes do Form</h5>
+  </div>
+
+  <div>
+    <pre class="bg-secondary p-2 rounded border border-info">
+      Form válido: {{ form.valid }}
+    </pre>
+
+    <pre class="bg-secondary p-2 rounded border border-info">
+      Form submetido: {{ form.submitted }}
+    </pre>
+
+    <pre class="bg-secondary p-2 rounded border border-info">
+      Valores:
+      <div class="ms-5">{{ form.value | json }}</div>
+    </pre>
+  </div>
+</div>
