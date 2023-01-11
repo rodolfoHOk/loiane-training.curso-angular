@@ -7,15 +7,16 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AlunoFormComponent } from '../alunos/aluno-form/aluno-form.component';
+import { IFormCanDeactivate } from './iform-candeactivate';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlunosDeactivateGuard
-  implements CanDeactivate<AlunoFormComponent>
+  implements CanDeactivate<IFormCanDeactivate>
 {
   canDeactivate(
-    component: AlunoFormComponent,
+    component: IFormCanDeactivate,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot
@@ -26,7 +27,6 @@ export class AlunosDeactivateGuard
     | UrlTree {
     console.log('guarda de desativação - alunos');
 
-    // return !component.formMudou;
-    return component.podeMudarRota();
+    return component.podeDesativar();
   }
 }
