@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-// import { AlunosGuard } from './guards/alunos.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { CursosGuard } from './guards/cursos.guard';
 
@@ -30,12 +29,11 @@ const appRoutes: Routes = [
   {
     path: '**',
     component: PaginaNaoEncontradaComponent,
-    // canActivate: [AuthGuard],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes)],
+  imports: [RouterModule.forRoot(appRoutes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
