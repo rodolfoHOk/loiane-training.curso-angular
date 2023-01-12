@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Endereco } from './endereco';
+import { VirtualTimeScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-template-form',
@@ -17,7 +18,9 @@ export class TemplateFormComponent {
   constructor(private http: HttpClient) {}
 
   onSubmit(form: NgForm) {
-    console.log(form);
+    this.http
+      .post('https://httpbin.org/post', JSON.stringify(form.value))
+      .subscribe((dados) => console.log(dados));
   }
 
   aplicaCssErro(campo: NgModel) {
@@ -52,20 +55,6 @@ export class TemplateFormComponent {
   }
 
   private populaDadosForm(dados: Endereco, form: NgForm) {
-    // form.setValue({
-    //   nome: form.value.nome,
-    //   email: form.value.email,
-    //   endereco: {
-    //     cep: dados.cep,
-    //     numero: form.value.endereco.numero,
-    //     complemento: dados.complemento,
-    //     logradouro: dados.logradouro,
-    //     bairro: dados.bairro,
-    //     cidade: dados.localidade,
-    //     estado: dados.uf,
-    //   },
-    // });
-
     form.form.patchValue({
       endereco: {
         cep: dados.cep,
