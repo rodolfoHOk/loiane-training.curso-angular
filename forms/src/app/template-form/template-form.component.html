@@ -1,7 +1,7 @@
 <form class="row g-3" #f="ngForm" (ngSubmit)="onSubmit(f)">
   <div class="col-sm-12">
     <label for="nome" class="form-label">Nome</label>
-    <div class="form-group" [class.was-validated]="!nome.valid && nome.touched">
+    <div class="form-group" [ngClass]="aplicaCssErro(nome)">
       <input
         type="text"
         class="form-control"
@@ -12,16 +12,17 @@
         required
         #nome="ngModel"
       />
+      <!-- <app-campo-control-erro
+        [mostrarErro]="verificaValidTouched(nome)"
+        msgErro="Nome é obrigatório."
+      ></app-campo-control-erro> com bootstrap 5 só complica e não funciona direito-->
       <div class="invalid-feedback">Nome é obrigatório</div>
     </div>
   </div>
 
   <div class="col-sm-12">
     <label for="email" class="form-label">E-mail</label>
-    <div
-      class="form-group"
-      [class.was-validated]="!email.valid && email.touched"
-    >
+    <div class="form-group" [ngClass]="aplicaCssErro(email)">
       <input
         type="email"
         class="form-control"
@@ -39,7 +40,7 @@
 
   <div class="col-md-3">
     <label for="cep" class="form-label">CEP</label>
-    <div class="form-group" [class.was-validated]="!cep.valid && cep.touched">
+    <div class="form-group" [ngClass]="aplicaCssErro(cep)">
       <input
         type="text"
         class="form-control"
@@ -56,10 +57,7 @@
 
   <div class="col-md-3">
     <label for="numero" class="form-label">Número</label>
-    <div
-      class="form-group"
-      [class.was-validated]="!numero.valid && numero.touched"
-    >
+    <div class="form-group" [ngClass]="aplicaCssErro(numero)">
       <input
         type="text"
         class="form-control"
@@ -89,10 +87,7 @@
 
   <div class="col-sm-12">
     <label for="logradouro" class="form-label">Logradouro</label>
-    <div
-      class="form-group"
-      [class.was-validated]="!logradouro.valid && logradouro.touched"
-    >
+    <div class="form-group" [ngClass]="aplicaCssErro(logradouro)">
       <input
         type="text"
         class="form-control"
@@ -109,10 +104,7 @@
 
   <div class="col-md-5">
     <label for="bairro" class="form-label">Bairro</label>
-    <div
-      class="form-group"
-      [class.was-validated]="!bairro.valid && bairro.touched"
-    >
+    <div class="form-group" [ngClass]="aplicaCssErro(bairro)">
       <input
         type="text"
         class="form-control"
@@ -128,10 +120,7 @@
 
   <div class="col-md-4">
     <label for="cidade" class="form-label">Cidade</label>
-    <div
-      class="form-group"
-      [class.was-validated]="!cidade.valid && cidade.touched"
-    >
+    <div class="form-group" [ngClass]="aplicaCssErro(cidade)">
       <input
         type="text"
         class="form-control"
@@ -147,10 +136,7 @@
 
   <div class="col-md-3">
     <label for="estado" class="form-label">Estado</label>
-    <div
-      class="form-group"
-      [class.was-validated]="!estado.valid && estado.touched"
-    >
+    <div class="form-group" [ngClass]="aplicaCssErro(estado)">
       <input
         type="text"
         class="form-control"

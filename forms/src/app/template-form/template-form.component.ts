@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-template-form',
@@ -14,5 +14,17 @@ export class TemplateFormComponent {
 
   onSubmit(form: NgForm) {
     console.log(form);
+  }
+
+  aplicaCssErro(campo: NgModel) {
+    return { 'was-validated': this.verificaValidTouched(campo) };
+  }
+
+  verificaValidTouched(campo: NgModel): boolean {
+    if (campo && campo.touched) {
+      return !campo.valid && campo.touched;
+    }
+
+    return false;
   }
 }
