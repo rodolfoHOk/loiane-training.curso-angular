@@ -1,1 +1,37 @@
-<p>data-form works!</p>
+<form [formGroup]="form">
+  <div class="row g-3">
+    <div class="col-sm-12">
+      <label for="nome" class="form-label">Nome</label>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="nome"
+          formControlName="nome"
+          placeholder="Nome Sobrenome"
+        />
+        <div class="invalid-feedback">Nome é obrigatório</div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <label for="email" class="form-label">E-mail</label>
+      <div class="form-group">
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          placeholder="usuario@email.com"
+        />
+        <div class="invalid-feedback">E-mail inválido</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 mt-4">
+    <button type="submit" class="btn btn-primary">Submeter</button>
+  </div>
+
+  <app-form-debug [form]="form"></app-form-debug>
+</form>
