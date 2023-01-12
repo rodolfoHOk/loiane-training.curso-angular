@@ -53,6 +53,7 @@
           ngModel
           required
           #cep="ngModel"
+          (blur)="consultaCEP($event, f)"
         />
         <div class="invalid-feedback">CEP é obrigatório</div>
       </div>
