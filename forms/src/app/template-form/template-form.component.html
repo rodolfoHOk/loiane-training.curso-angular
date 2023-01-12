@@ -1,152 +1,156 @@
-<form class="row g-3" #f="ngForm" (ngSubmit)="onSubmit(f)">
-  <div class="col-sm-12">
-    <label for="nome" class="form-label">Nome</label>
-    <div class="form-group" [ngClass]="aplicaCssErro(nome)">
-      <input
-        type="text"
-        class="form-control"
-        id="nome"
-        name="nome"
-        placeholder="Nome Sobrenome"
-        [ngModel]="usuario.nome"
-        required
-        #nome="ngModel"
-      />
-      <!-- <app-campo-control-erro
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div class="row g-3">
+    <div class="col-sm-12">
+      <label for="nome" class="form-label">Nome</label>
+      <div class="form-group" [ngClass]="aplicaCssErro(nome)">
+        <input
+          type="text"
+          class="form-control"
+          id="nome"
+          name="nome"
+          placeholder="Nome Sobrenome"
+          [ngModel]="usuario.nome"
+          required
+          #nome="ngModel"
+        />
+        <!-- <app-campo-control-erro
         [mostrarErro]="verificaValidTouched(nome)"
         msgErro="Nome é obrigatório."
       ></app-campo-control-erro> com bootstrap 5 só complica e não funciona direito-->
-      <div class="invalid-feedback">Nome é obrigatório</div>
+        <div class="invalid-feedback">Nome é obrigatório</div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <label for="email" class="form-label">E-mail</label>
+      <div class="form-group" [ngClass]="aplicaCssErro(email)">
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="usuario@email.com"
+          [ngModel]="usuario.email"
+          required
+          email
+          #email="ngModel"
+        />
+        <div class="invalid-feedback">E-mail inválido</div>
+      </div>
     </div>
   </div>
 
-  <div class="col-sm-12">
-    <label for="email" class="form-label">E-mail</label>
-    <div class="form-group" [ngClass]="aplicaCssErro(email)">
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        name="email"
-        placeholder="usuario@email.com"
-        [ngModel]="usuario.email"
-        required
-        email
-        #email="ngModel"
-      />
-      <div class="invalid-feedback">E-mail inválido</div>
+  <div class="row g-3 mt-0" ngModelGroup="endereco">
+    <div class="col-md-3">
+      <label for="cep" class="form-label">CEP</label>
+      <div class="form-group" [ngClass]="aplicaCssErro(cep)">
+        <input
+          type="text"
+          class="form-control"
+          id="cep"
+          name="cep"
+          placeholder="12345678"
+          ngModel
+          required
+          #cep="ngModel"
+        />
+        <div class="invalid-feedback">CEP é obrigatório</div>
+      </div>
     </div>
-  </div>
 
-  <div class="col-md-3">
-    <label for="cep" class="form-label">CEP</label>
-    <div class="form-group" [ngClass]="aplicaCssErro(cep)">
-      <input
-        type="text"
-        class="form-control"
-        id="cep"
-        name="cep"
-        placeholder="12345678"
-        ngModel
-        required
-        #cep="ngModel"
-      />
-      <div class="invalid-feedback">CEP é obrigatório</div>
+    <div class="col-md-3">
+      <label for="numero" class="form-label">Número</label>
+      <div class="form-group" [ngClass]="aplicaCssErro(numero)">
+        <input
+          type="text"
+          class="form-control"
+          id="numero"
+          name="numero"
+          ngModel
+          required
+          #numero="ngModel"
+        />
+        <div class="invalid-feedback">Número é obrigatório</div>
+      </div>
     </div>
-  </div>
 
-  <div class="col-md-3">
-    <label for="numero" class="form-label">Número</label>
-    <div class="form-group" [ngClass]="aplicaCssErro(numero)">
-      <input
-        type="text"
-        class="form-control"
-        id="numero"
-        name="numero"
-        ngModel
-        required
-        #numero="ngModel"
-      />
-      <div class="invalid-feedback">Número é obrigatório</div>
+    <div class="col-md-6">
+      <label for="complemento" class="form-label">Complemento</label>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="complemento"
+          name="complemento"
+          ngModel
+          #complemento="ngModel"
+        />
+      </div>
     </div>
-  </div>
 
-  <div class="col-md-6">
-    <label for="complemento" class="form-label">Complemento</label>
-    <div class="form-group">
-      <input
-        type="text"
-        class="form-control"
-        id="complemento"
-        name="complemento"
-        ngModel
-        #complemento="ngModel"
-      />
+    <div class="col-sm-12">
+      <label for="logradouro" class="form-label">Logradouro</label>
+      <div class="form-group" [ngClass]="aplicaCssErro(logradouro)">
+        <input
+          type="text"
+          class="form-control"
+          id="logradouro"
+          name="logradouro"
+          placeholder="Nome da rua ou avenida ou etc."
+          ngModel
+          required
+          #logradouro="ngModel"
+        />
+        <div class="invalid-feedback">Logradouro é obrigatório</div>
+      </div>
     </div>
-  </div>
 
-  <div class="col-sm-12">
-    <label for="logradouro" class="form-label">Logradouro</label>
-    <div class="form-group" [ngClass]="aplicaCssErro(logradouro)">
-      <input
-        type="text"
-        class="form-control"
-        id="logradouro"
-        name="logradouro"
-        placeholder="Nome da rua ou avenida ou etc."
-        ngModel
-        required
-        #logradouro="ngModel"
-      />
-      <div class="invalid-feedback">Logradouro é obrigatório</div>
+    <div class="col-md-5">
+      <label for="bairro" class="form-label">Bairro</label>
+      <div class="form-group" [ngClass]="aplicaCssErro(bairro)">
+        <input
+          type="text"
+          class="form-control"
+          id="bairro"
+          name="bairro"
+          ngModel
+          required
+          #bairro="ngModel"
+        />
+        <div class="invalid-feedback">Bairro é obrigatório</div>
+      </div>
     </div>
-  </div>
 
-  <div class="col-md-5">
-    <label for="bairro" class="form-label">Bairro</label>
-    <div class="form-group" [ngClass]="aplicaCssErro(bairro)">
-      <input
-        type="text"
-        class="form-control"
-        id="bairro"
-        name="bairro"
-        ngModel
-        required
-        #bairro="ngModel"
-      />
-      <div class="invalid-feedback">Bairro é obrigatório</div>
+    <div class="col-md-4">
+      <label for="cidade" class="form-label">Cidade</label>
+      <div class="form-group" [ngClass]="aplicaCssErro(cidade)">
+        <input
+          type="text"
+          class="form-control"
+          id="cidade"
+          name="cidade"
+          ngModel
+          required
+          #cidade="ngModel"
+        />
+        <div class="invalid-feedback">Cidade é obrigatório</div>
+      </div>
     </div>
-  </div>
 
-  <div class="col-md-4">
-    <label for="cidade" class="form-label">Cidade</label>
-    <div class="form-group" [ngClass]="aplicaCssErro(cidade)">
-      <input
-        type="text"
-        class="form-control"
-        id="cidade"
-        name="cidade"
-        ngModel
-        required
-        #cidade="ngModel"
-      />
-      <div class="invalid-feedback">Cidade é obrigatório</div>
-    </div>
-  </div>
-
-  <div class="col-md-3">
-    <label for="estado" class="form-label">Estado</label>
-    <div class="form-group" [ngClass]="aplicaCssErro(estado)">
-      <input
-        type="text"
-        class="form-control"
-        id="estado"
-        name="estado"
-        ngModel
-        required
-        #estado="ngModel"
-      />
-      <div class="invalid-feedback">Estado é obrigatório</div>
+    <div class="col-md-3">
+      <label for="estado" class="form-label">Estado</label>
+      <div class="form-group" [ngClass]="aplicaCssErro(estado)">
+        <input
+          type="text"
+          class="form-control"
+          id="estado"
+          name="estado"
+          ngModel
+          required
+          #estado="ngModel"
+        />
+        <div class="invalid-feedback">Estado é obrigatório</div>
+      </div>
     </div>
   </div>
 
