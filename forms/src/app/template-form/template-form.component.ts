@@ -20,7 +20,10 @@ export class TemplateFormComponent {
   onSubmit(form: NgForm) {
     this.http
       .post('https://httpbin.org/post', JSON.stringify(form.value))
-      .subscribe((dados) => console.log(dados));
+      .subscribe((dados) => {
+        console.log(dados);
+        form.form.reset();
+      });
   }
 
   aplicaCssErro(campo: NgModel) {
