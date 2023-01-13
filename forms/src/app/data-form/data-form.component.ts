@@ -1,11 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Endereco } from '../template-form/endereco';
 
 @Component({
   selector: 'app-data-form',
@@ -18,20 +14,6 @@ export class DataFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
-    // this.form = new FormGroup({
-    //   nome: new FormControl('', Validators.required),
-    //   email: new FormControl('', [Validators.required, Validators.email]),
-    //   endereco: new FormGroup({
-    //     cep: new FormControl('', Validators.required),
-    //     numero: new FormControl('', Validators.required),
-    //     complemento: new FormControl(''),
-    //     logradouro: new FormControl('', Validators.required),
-    //     bairro: new FormControl('', Validators.required),
-    //     cidade: new FormControl('', Validators.required),
-    //     estado: new FormControl('', Validators.required),
-    //   }),
-    // });
-
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -67,6 +49,50 @@ export class DataFormComponent implements OnInit {
     if (campoEmail?.errors) {
       return campoEmail?.errors!['required'] && campoEmail.touched;
     }
+  }
+
+  consultaCep() {
+    let cep = this.form.get('endereco.cep')?.value;
+    cep = cep.replace(/\D/g, '');
+
+    if (cep !== '') {
+      let validaCep = /^[0-9]{8}$/;
+
+      if (validaCep.test(cep)) {
+        this.resetDadosForm();
+
+        let url = `https://viacep.com.br/ws/${cep}/json`;
+
+        this.http.get<Endereco>(url).subscribe((dados) => {
+          this.populaDadosForm(dados);
+        });
+      }
+    }
+  }
+
+  private populaDadosForm(dados: Endereco) {
+    this.form.patchValue({
+      endereco: {
+        cep: dados.cep,
+        complemento: dados.complemento,
+        logradouro: dados.logradouro,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf,
+      },
+    });
+  }
+
+  private resetDadosForm() {
+    this.form.patchValue({
+      endereco: {
+        complemento: '',
+        logradouro: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
+      },
+    });
   }
 
   onSubmit() {
