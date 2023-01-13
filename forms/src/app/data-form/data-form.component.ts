@@ -14,8 +14,15 @@ export class DataFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      nome: ['', [Validators.required]],
+      nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      cep: ['', Validators.required],
+      numero: ['', Validators.required],
+      complemento: [''],
+      logradouro: ['', Validators.required],
+      bairro: ['', Validators.required],
+      cidade: ['', Validators.required],
+      estado: ['', Validators.required],
     });
   }
 
