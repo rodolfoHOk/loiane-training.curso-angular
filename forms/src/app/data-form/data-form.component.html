@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <div class="row g-3 mt-0">
+  <div class="row g-3 mt-0" formGroupName="endereco">
     <div class="col-md-3">
       <label for="cep" class="form-label">CEP</label>
       <div class="form-group">
@@ -46,7 +46,7 @@
           id="cep"
           formControlName="cep"
           placeholder="12345678"
-          [ngClass]="aplicaCssErro('cep')"
+          [ngClass]="aplicaCssErro('endereco.cep')"
         />
         <div class="invalid-feedback">CEP é obrigatório</div>
       </div>
@@ -60,7 +60,7 @@
           class="form-control"
           id="numero"
           formControlName="numero"
-          [ngClass]="aplicaCssErro('numero')"
+          [ngClass]="aplicaCssErro('endereco.numero')"
         />
         <div class="invalid-feedback">Número é obrigatório</div>
       </div>
@@ -87,7 +87,7 @@
           id="logradouro"
           formControlName="logradouro"
           placeholder="Nome da rua ou avenida ou etc."
-          [ngClass]="aplicaCssErro('logradouro')"
+          [ngClass]="aplicaCssErro('endereco.logradouro')"
         />
         <div class="invalid-feedback">Logradouro é obrigatório</div>
       </div>
@@ -101,7 +101,7 @@
           class="form-control"
           id="bairro"
           formControlName="bairro"
-          [ngClass]="aplicaCssErro('bairro')"
+          [ngClass]="aplicaCssErro('endereco.bairro')"
         />
         <div class="invalid-feedback">Bairro é obrigatório</div>
       </div>
@@ -115,7 +115,7 @@
           class="form-control"
           id="cidade"
           formControlName="cidade"
-          [ngClass]="aplicaCssErro('cidade')"
+          [ngClass]="aplicaCssErro('endereco.cidade')"
         />
         <div class="invalid-feedback">Cidade é obrigatório</div>
       </div>
@@ -129,7 +129,7 @@
           class="form-control"
           id="estado"
           formControlName="estado"
-          [ngClass]="aplicaCssErro('estado')"
+          [ngClass]="aplicaCssErro('endereco.estado')"
         />
         <div class="invalid-feedback">Estado é obrigatório</div>
       </div>
