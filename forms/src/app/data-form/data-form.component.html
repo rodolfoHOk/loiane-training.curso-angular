@@ -9,6 +9,7 @@
           id="nome"
           formControlName="nome"
           placeholder="Nome Sobrenome"
+          [ngClass]="aplicaCssErro('nome')"
         />
         <div class="invalid-feedback">Nome é obrigatório</div>
       </div>
@@ -23,8 +24,14 @@
           id="email"
           formControlName="email"
           placeholder="usuario@email.com"
+          [ngClass]="aplicaCssErro('email')"
         />
-        <div class="invalid-feedback">E-mail inválido</div>
+        <div class="invalid-feedback" *ngIf="verificaEmailRequerido()">
+          E-mail é obrigatório
+        </div>
+        <div class="invalid-feedback" *ngIf="verificaEmailInvalido()">
+          E-mail inválido
+        </div>
       </div>
     </div>
   </div>

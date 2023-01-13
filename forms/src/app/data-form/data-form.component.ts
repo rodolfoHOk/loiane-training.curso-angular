@@ -14,17 +14,31 @@ export class DataFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      nome: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(30),
-        ],
-      ],
+      nome: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      // Angular 2 -> Validators.pattern('...'), Angular 4+ -> Validators.email
     });
+  }
+
+  aplicaCssErro(campo: string) {
+    return { 'is-invalid': this.verificaValidTouched(campo) };
+  }
+
+  verificaValidTouched(campo: string): boolean {
+    return !this.form.get(campo)?.valid! && this.form.get(campo)?.touched!;
+  }
+
+  verificaEmailInvalido() {
+    let campoEmail = this.form.get('email');
+    if (campoEmail?.errors) {
+      return campoEmail?.errors!['email'] && campoEmail.touched;
+    }
+  }
+
+  verificaEmailRequerido() {
+    let campoEmail = this.form.get('email');
+    if (campoEmail?.errors) {
+      return campoEmail?.errors!['required'] && campoEmail.touched;
+    }
   }
 
   onSubmit() {
