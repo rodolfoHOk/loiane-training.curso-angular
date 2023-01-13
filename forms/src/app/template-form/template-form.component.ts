@@ -3,6 +3,7 @@ import { NgForm, NgModel } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Endereco } from './endereco';
 import { VirtualTimeScheduler } from 'rxjs';
+import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 
 @Component({
   selector: 'app-template-form',
@@ -15,7 +16,10 @@ export class TemplateFormComponent {
     email: '',
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private consultaCepService: ConsultaCepService
+  ) {}
 
   onSubmit(form: NgForm) {
     this.http
@@ -40,20 +44,14 @@ export class TemplateFormComponent {
 
   consultaCEP(event: FocusEvent, form: NgForm) {
     const inputElement = event.target as HTMLInputElement;
-    let cep = inputElement.value.replace(/\D/g, '');
+    let cep = inputElement.value;
 
-    if (cep !== '') {
-      let validaCep = /^[0-9]{8}$/;
+    if (cep && cep !== '') {
+      this.resetDadosForm(form);
 
-      if (validaCep.test(cep)) {
-        this.resetDadosForm(form);
-
-        let url = `https://viacep.com.br/ws/${cep}/json`;
-
-        this.http.get<Endereco>(url).subscribe((dados) => {
-          this.populaDadosForm(dados, form);
-        });
-      }
+      this.consultaCepService
+        .consultaCep(cep)
+        ?.subscribe((dados) => this.populaDadosForm(dados as Endereco, form));
     }
   }
 

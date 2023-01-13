@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EstadoBr } from '../shared/models/estado-br';
+import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { Endereco } from '../template-form/endereco';
 
@@ -17,7 +18,8 @@ export class DataFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private dropdownService: DropdownService
+    private dropdownService: DropdownService,
+    private consultaCepService: ConsultaCepService
   ) {}
 
   ngOnInit(): void {
@@ -72,20 +74,13 @@ export class DataFormComponent implements OnInit {
 
   consultaCep() {
     let cep = this.form.get('endereco.cep')?.value;
-    cep = cep.replace(/\D/g, '');
 
-    if (cep !== '') {
-      let validaCep = /^[0-9]{8}$/;
+    if (cep && cep !== '') {
+      this.resetDadosForm();
 
-      if (validaCep.test(cep)) {
-        this.resetDadosForm();
-
-        let url = `https://viacep.com.br/ws/${cep}/json`;
-
-        this.http.get<Endereco>(url).subscribe((dados) => {
-          this.populaDadosForm(dados);
-        });
-      }
+      this.consultaCepService.consultaCep(cep)?.subscribe((dados) => {
+        this.populaDadosForm(dados as Endereco);
+      });
     }
   }
 
