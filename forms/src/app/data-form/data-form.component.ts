@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-data-form',
@@ -13,20 +13,21 @@ export class DataFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
-    // this.form = new FormGroup({
-    //   nome: new FormControl(''),
-    //   email: new FormControl(''),
-    // });
-
     this.form = this.formBuilder.group({
-      nome: [''],
-      email: [''],
+      nome: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30),
+        ],
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      // Angular 2 -> Validators.pattern('...'), Angular 4+ -> Validators.email
     });
   }
 
   onSubmit() {
-    // console.log(this.form.value);
-
     this.http
       .post('https://httpbin.org/post', JSON.stringify(this.form.value))
       .subscribe({
