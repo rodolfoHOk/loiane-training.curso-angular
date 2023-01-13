@@ -34,20 +34,28 @@ export class DataFormComponent implements OnInit {
   }
 
   verificaValidTouched(campo: string): boolean {
-    return !this.form.get(campo)?.valid! && this.form.get(campo)?.touched!;
+    return (
+      !this.form.get(campo)?.valid! &&
+      (this.form.get(campo)?.touched! || this.form.get(campo)?.dirty!)
+    );
   }
 
   verificaEmailInvalido() {
     let campoEmail = this.form.get('email');
     if (campoEmail?.errors) {
-      return campoEmail?.errors!['email'] && campoEmail.touched;
+      return (
+        campoEmail?.errors!['email'] && (campoEmail.touched || campoEmail.dirty)
+      );
     }
   }
 
   verificaEmailRequerido() {
     let campoEmail = this.form.get('email');
     if (campoEmail?.errors) {
-      return campoEmail?.errors!['required'] && campoEmail.touched;
+      return (
+        campoEmail?.errors!['required'] &&
+        (campoEmail.touched || campoEmail.dirty)
+      );
     }
   }
 
@@ -96,15 +104,31 @@ export class DataFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.http
-      .post('https://httpbin.org/post', JSON.stringify(this.form.value))
-      .subscribe({
-        next: (dados) => {
-          console.log(dados);
-          this.reset();
-        },
-        error: (error) => alert(error.message),
-      });
+    if (this.form.valid) {
+      this.http
+        .post('https://httpbin.org/post', JSON.stringify(this.form.value))
+        .subscribe({
+          next: (dados) => {
+            console.log(dados);
+            this.reset();
+          },
+          error: (error) => alert(error.message),
+        });
+    } else {
+      // console.log('formulário inválido');
+      this.verificaValidationsForm(this.form);
+    }
+  }
+
+  verificaValidationsForm(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((campo) => {
+      // console.log(campo);
+      const controle = formGroup.get(campo);
+      controle?.markAsDirty();
+      if (controle instanceof FormGroup) {
+        this.verificaValidationsForm(controle);
+      }
+    });
   }
 
   reset() {
