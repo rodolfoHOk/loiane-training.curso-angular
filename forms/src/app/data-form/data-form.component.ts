@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EstadoBr } from '../shared/models/estado-br';
+import { DropdownService } from '../shared/services/dropdown.service';
 import { Endereco } from '../template-form/endereco';
 
 @Component({
@@ -10,10 +12,19 @@ import { Endereco } from '../template-form/endereco';
 })
 export class DataFormComponent implements OnInit {
   form!: FormGroup;
+  estados: EstadoBr[] = [];
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private dropdownService: DropdownService
+  ) {}
 
   ngOnInit(): void {
+    this.dropdownService
+      .getEstadosBr()
+      .subscribe((dados) => (this.estados = dados));
+
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -115,14 +126,12 @@ export class DataFormComponent implements OnInit {
           error: (error) => alert(error.message),
         });
     } else {
-      // console.log('formulário inválido');
       this.verificaValidationsForm(this.form);
     }
   }
 
   verificaValidationsForm(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach((campo) => {
-      // console.log(campo);
       const controle = formGroup.get(campo);
       controle?.markAsDirty();
       if (controle instanceof FormGroup) {
