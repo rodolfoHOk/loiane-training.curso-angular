@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { FormValidations } from '../shared/form-validations';
 import { Cargo } from '../shared/models/cargo';
 import { EstadoBr } from '../shared/models/estado-br';
@@ -15,6 +17,7 @@ import { Tecnologia } from '../shared/models/tecnologia';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { Endereco } from '../template-form/endereco';
+import { VerificaEmailService } from './services/verifica-email.service';
 
 @Component({
   selector: 'app-data-form',
@@ -34,7 +37,8 @@ export class DataFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private dropdownService: DropdownService,
-    private consultaCepService: ConsultaCepService
+    private consultaCepService: ConsultaCepService,
+    private verificaEmailService: VerificaEmailService
   ) {}
 
   ngOnInit(): void {
@@ -45,9 +49,19 @@ export class DataFormComponent implements OnInit {
     this.newsletterOp = this.dropdownService.getNewsletter();
 
     this.form = this.formBuilder.group({
-      nome: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      confirmarEmail: ['', [FormValidations.equalsTo('email')]],
+      nome: [
+        '',
+        [Validators.required, Validators.minLength(3), Validators.maxLength(5)],
+      ],
+      email: [
+        '',
+        [Validators.required, Validators.email],
+        [this.validarEmail.bind(this)],
+      ],
+      confirmarEmail: [
+        '',
+        [Validators.required, FormValidations.equalsTo('email')],
+      ],
       endereco: this.formBuilder.group({
         cep: ['', [Validators.required, FormValidations.cepValidator]],
         numero: ['', Validators.required],
@@ -78,7 +92,9 @@ export class DataFormComponent implements OnInit {
   }
 
   aplicaCssErro(campo: string) {
-    return { 'is-invalid': this.verificaValidTouched(campo) };
+    return {
+      'is-invalid': this.verificaValidTouched(campo),
+    };
   }
 
   verificaValidTouched(campo: string): boolean {
@@ -200,5 +216,13 @@ export class DataFormComponent implements OnInit {
 
   compararTecnologias(obj1: Tecnologia, obj2: Tecnologia): boolean {
     return obj1 === obj2;
+  }
+
+  validarEmail(control: AbstractControl): ValidationErrors | null {
+    return this.verificaEmailService
+      .verificarEmail(control.value)
+      .pipe(
+        map((emailExiste) => (emailExiste ? { emailInvalido: true } : null))
+      );
   }
 }

@@ -15,7 +15,7 @@ export class FormValidations {
       const totalChecked = formArray.controls
         .map((v) => v.value)
         .reduce((total, current) => (current ? ++total : total), 0);
-      return totalChecked >= min ? null : { required: true };
+      return totalChecked >= min ? null : { requiredMinCheckbox: true };
     };
     return validator;
   }
@@ -36,7 +36,7 @@ export class FormValidations {
       control: AbstractControl
     ): ValidationErrors | null => {
       if (!otherField) {
-        throw new Error('É necessário informar um campo!');
+        throw new Error('É necessário informar um campo.');
       }
 
       if (!control.root || !(<FormGroup>control.root).controls) {
@@ -45,7 +45,7 @@ export class FormValidations {
 
       const field = (<FormGroup>control.root).get(otherField);
       if (!field) {
-        throw new Error('É necessário informar um campo válido!');
+        throw new Error('É necessário informar um campo válido.');
       }
 
       if (field.value !== control.value) {
@@ -54,5 +54,24 @@ export class FormValidations {
       return null;
     };
     return validator;
+  }
+
+  static getErroMsg(
+    fieldName: string,
+    validatorName: string,
+    validatorValue?: any
+  ): string {
+    const config = Object({
+      required: `${fieldName} é obrigatório.`,
+      email: `${fieldName} inválido.`,
+      emailInvalido: `${fieldName} já cadastrado.`,
+      minlength: `${fieldName} precisa ter no mínimo ${validatorValue.requiredLength} caracteres.`,
+      maxlength: `${fieldName} deve ter no máximo ${validatorValue.requiredLength} caracteres.`,
+      cepInvalido: `CEP inválido`,
+      equalsTo: `${fieldName} deve ser igual a ${validatorValue}`,
+      requiredMinCheckbox: `Selecione ao menos uma opção`,
+      pattern: `Por favor aceite os ${fieldName}`,
+    });
+    return config[validatorName];
   }
 }
