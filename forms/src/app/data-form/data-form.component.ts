@@ -48,7 +48,7 @@ export class DataFormComponent implements OnInit {
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       endereco: this.formBuilder.group({
-        cep: ['', Validators.required],
+        cep: ['', [Validators.required, FormValidations.cepValidator]],
         numero: ['', Validators.required],
         complemento: [''],
         logradouro: ['', Validators.required],
@@ -121,7 +121,6 @@ export class DataFormComponent implements OnInit {
   private populaDadosForm(dados: Endereco) {
     this.form.patchValue({
       endereco: {
-        cep: dados.cep,
         complemento: dados.complemento,
         logradouro: dados.logradouro,
         bairro: dados.bairro,

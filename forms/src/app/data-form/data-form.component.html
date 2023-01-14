@@ -49,7 +49,18 @@
           [ngClass]="aplicaCssErro('endereco.cep')"
           (blur)="consultaCep()"
         />
-        <div class="invalid-feedback">CEP é obrigatório</div>
+        <div
+          class="invalid-feedback"
+          *ngIf="form.get('endereco.cep')?.hasError('required')"
+        >
+          CEP é obrigatório
+        </div>
+        <div
+          class="invalid-feedback"
+          *ngIf="form.get('endereco.cep')?.hasError('cepInvalido')"
+        >
+          CEP inválido
+        </div>
       </div>
     </div>
 

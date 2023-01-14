@@ -18,4 +18,15 @@ export class FormValidations {
     };
     return validator;
   }
+
+  static cepValidator: ValidatorFn = (
+    control: AbstractControl
+  ): ValidationErrors | null => {
+    const cep = control.value;
+    if (cep && cep !== '') {
+      const validaCep = /^[0-9]{8}$/;
+      return validaCep.test(cep) ? null : { cepInvalido: true };
+    }
+    return null;
+  };
 }
