@@ -1,6 +1,7 @@
 import {
   AbstractControl,
   FormArray,
+  FormGroup,
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
@@ -29,4 +30,29 @@ export class FormValidations {
     }
     return null;
   };
+
+  static equalsTo(otherField: string) {
+    const validator: ValidatorFn = (
+      control: AbstractControl
+    ): ValidationErrors | null => {
+      if (!otherField) {
+        throw new Error('É necessário informar um campo!');
+      }
+
+      if (!control.root || !(<FormGroup>control.root).controls) {
+        return null;
+      }
+
+      const field = (<FormGroup>control.root).get(otherField);
+      if (!field) {
+        throw new Error('É necessário informar um campo válido!');
+      }
+
+      if (field.value !== control.value) {
+        return { equalsTo: otherField };
+      }
+      return null;
+    };
+    return validator;
+  }
 }
