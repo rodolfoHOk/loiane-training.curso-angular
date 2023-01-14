@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { FormValidations } from '../shared/form-validations';
 import { Cargo } from '../shared/models/cargo';
 import { EstadoBr } from '../shared/models/estado-br';
 import { Tecnologia } from '../shared/models/tecnologia';
@@ -64,8 +65,11 @@ export class DataFormComponent implements OnInit {
   }
 
   buildFrameworks() {
-    const values = this.frameworks.map((framework) => new FormControl(false));
-    return this.formBuilder.array(values);
+    const values = this.frameworks.map(() => new FormControl(false));
+    return this.formBuilder.array(
+      values,
+      FormValidations.requiredMinCheckbox(1)
+    );
   }
 
   getFrameworksFormArray() {
