@@ -212,6 +212,25 @@
         <div class="invalid-feedback">Por favor aceite os termos</div>
       </div>
     </div>
+
+    <div class="col-md-4">
+      <label for="frameworks" class="form-label">Frameworks</label>
+      <div class="form-group" id="frameworks">
+        <div
+          class="form-check form-check-inline"
+          formArrayName="frameworks"
+          *ngFor="let item of getFrameworksFormArray().controls; let i = index"
+        >
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value="Angular"
+            [formControlName]="i"
+          />
+          <label class="form-check-label">{{ frameworks[i] }}</label>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="col-sm-12 mt-4">

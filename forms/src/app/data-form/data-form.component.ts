@@ -1,6 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Cargo } from '../shared/models/cargo';
 import { EstadoBr } from '../shared/models/estado-br';
@@ -21,6 +27,7 @@ export class DataFormComponent implements OnInit {
   cargos: Cargo[] = [];
   tecnologias: Tecnologia[] = [];
   newsletterOp: any[] = [];
+  frameworks = ['Angular', 'React', 'Vue', 'Svelte'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,7 +59,17 @@ export class DataFormComponent implements OnInit {
       tecnologias: [[]],
       newsletter: ['s'],
       termos: [false, Validators.pattern('true')],
+      frameworks: this.buildFrameworks(),
     });
+  }
+
+  buildFrameworks() {
+    const values = this.frameworks.map((framework) => new FormControl(false));
+    return this.formBuilder.array(values);
+  }
+
+  getFrameworksFormArray() {
+    return this.form.get('frameworks') as FormArray;
   }
 
   aplicaCssErro(campo: string) {
@@ -123,9 +140,19 @@ export class DataFormComponent implements OnInit {
   }
 
   onSubmit() {
+    let submitValue = Object.assign({}, this.form.value);
+
+    submitValue = Object.assign(submitValue, {
+      frameworks: submitValue.frameworks
+        .map((value: boolean, index: number) =>
+          value ? this.frameworks[index] : null
+        )
+        .filter((v: string) => v !== null),
+    });
+
     if (this.form.valid) {
       this.http
-        .post('https://httpbin.org/post', JSON.stringify(this.form.value))
+        .post('https://httpbin.org/post', JSON.stringify(submitValue))
         .subscribe({
           next: (dados) => {
             console.log(dados);
