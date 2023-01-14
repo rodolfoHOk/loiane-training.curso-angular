@@ -31,4 +31,11 @@ export class DropdownService {
       { nome: 'go', desc: 'Go Lang' },
     ];
   }
+
+  getNewsletter() {
+    return [
+      { valor: 's', desc: 'Sim' },
+      { valor: 'n', desc: 'Não' },
+    ];
+  }
 }
