@@ -142,7 +142,7 @@
   </div>
 
   <div class="row g-3 mt-0">
-    <div class="col-md-3">
+    <div class="col-md-4">
       <label for="cargo" class="form-label">Cargo</label>
       <div class="form-group">
         <select
@@ -158,7 +158,7 @@
       </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
       <label for="tecnologias" class="form-label">Tecnologias</label>
       <div class="form-group">
         <select
@@ -177,7 +177,7 @@
       </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
       <label for="newsletter" class="form-label">Newsletter</label>
       <div class="form-group">
         <div
@@ -194,6 +194,22 @@
             item.desc
           }}</label>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mt-0">
+    <div class="col-md-4">
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="termos"
+          formControlName="termos"
+          [ngClass]="aplicaCssErro('termos')"
+        />
+        <label class="form-check-label" for="termos">Aceito os termos</label>
+        <div class="invalid-feedback">Por favor aceite os termos</div>
       </div>
     </div>
   </div>
