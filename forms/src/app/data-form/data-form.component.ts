@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Cargo } from '../shared/models/cargo';
 import { EstadoBr } from '../shared/models/estado-br';
+import { Tecnologia } from '../shared/models/tecnologia';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { Endereco } from '../template-form/endereco';
@@ -16,7 +17,9 @@ import { Endereco } from '../template-form/endereco';
 export class DataFormComponent implements OnInit {
   form!: FormGroup;
   estados?: Observable<EstadoBr[]>;
+
   cargos: Cargo[] = [];
+  tecnologias: Tecnologia[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,6 +32,7 @@ export class DataFormComponent implements OnInit {
     this.estados = this.dropdownService.getEstadosBr();
 
     this.cargos = this.dropdownService.getCargos();
+    this.tecnologias = this.dropdownService.getTecnologias();
 
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -43,6 +47,7 @@ export class DataFormComponent implements OnInit {
         estado: ['', Validators.required],
       }),
       cargo: [null],
+      tecnologias: [[]],
     });
   }
 
@@ -152,5 +157,13 @@ export class DataFormComponent implements OnInit {
     return obj1 && obj2
       ? obj1.nome === obj2.nome && obj1.nivel === obj2.nivel
       : obj1 === obj2;
+  }
+
+  setTecnologias() {
+    this.form.get('tecnologias')?.setValue(['java', 'javascript', 'php']);
+  }
+
+  compararTecnologias(obj1: Tecnologia, obj2: Tecnologia): boolean {
+    return obj1 === obj2;
   }
 }
