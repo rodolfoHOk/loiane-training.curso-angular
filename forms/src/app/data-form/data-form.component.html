@@ -141,11 +141,32 @@
     </div>
   </div>
 
+  <div class="col-md-3 mt-3">
+    <label for="cargo" class="form-label">Cargo</label>
+    <div class="form-group">
+      <select
+        type="text"
+        class="form-select"
+        id="cargo"
+        formControlName="cargo"
+        [compareWith]="compararCargos"
+      >
+        <option *ngFor="let cargo of cargos" [ngValue]="cargo">
+          {{ cargo.desc }}
+        </option>
+      </select>
+    </div>
+  </div>
+
   <div class="col-sm-12 mt-4">
     <button type="submit" class="btn btn-primary">Submeter</button>
 
     <button type="button" class="btn btn-secondary ms-2" (click)="reset()">
       Cancelar
+    </button>
+
+    <button type="button" class="btn btn-secondary ms-2" (click)="setCargo()">
+      Setar Cargo
     </button>
   </div>
 

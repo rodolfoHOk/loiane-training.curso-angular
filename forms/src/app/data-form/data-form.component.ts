@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { Cargo } from '../shared/models/cargo';
 import { EstadoBr } from '../shared/models/estado-br';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { DropdownService } from '../shared/services/dropdown.service';
@@ -15,6 +16,7 @@ import { Endereco } from '../template-form/endereco';
 export class DataFormComponent implements OnInit {
   form!: FormGroup;
   estados?: Observable<EstadoBr[]>;
+  cargos: Cargo[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,6 +27,8 @@ export class DataFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.estados = this.dropdownService.getEstadosBr();
+
+    this.cargos = this.dropdownService.getCargos();
 
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -38,6 +42,7 @@ export class DataFormComponent implements OnInit {
         cidade: ['', Validators.required],
         estado: ['', Validators.required],
       }),
+      cargo: [null],
     });
   }
 
@@ -136,5 +141,16 @@ export class DataFormComponent implements OnInit {
 
   reset() {
     this.form.reset();
+  }
+
+  setCargo() {
+    const cargo = { nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl' };
+    this.form.get('cargo')?.setValue(cargo);
+  }
+
+  compararCargos(obj1: Cargo, obj2: Cargo): boolean {
+    return obj1 && obj2
+      ? obj1.nome === obj2.nome && obj1.nivel === obj2.nivel
+      : obj1 === obj2;
   }
 }
