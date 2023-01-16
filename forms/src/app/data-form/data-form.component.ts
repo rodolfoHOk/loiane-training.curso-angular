@@ -9,7 +9,14 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { map, Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  EMPTY,
+  map,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { FormValidations } from '../shared/form-validations';
 import { Cargo } from '../shared/models/cargo';
 import { EstadoBr } from '../shared/models/estado-br';
@@ -77,6 +84,29 @@ export class DataFormComponent implements OnInit {
       termos: [false, Validators.pattern('true')],
       frameworks: this.buildFrameworks(),
     });
+
+    // this.form
+    //   .get('endereco.cep')
+    //   ?.valueChanges.subscribe((value) =>
+    //     console.log('Valor do CEP: ' + value)
+    //   );
+
+    this.form
+      .get('endereco.cep')
+      ?.statusChanges.pipe(
+        distinctUntilChanged(),
+        // tap((status) => console.log('Status do CEP: ' + status)),
+        switchMap((status) =>
+          status === 'VALID'
+            ? this.consultaCepService.consultaCep(
+                this.form.get('endereco.cep')?.value
+              )
+            : EMPTY
+        )
+      )
+      .subscribe((dados) =>
+        dados ? this.populaDadosForm(dados as Endereco) : {}
+      );
   }
 
   buildFrameworks() {

@@ -78,7 +78,6 @@
           formControlName="cep"
           placeholder="12345678"
           [ngClass]="aplicaCssErro('endereco.cep')"
-          (blur)="consultaCep()"
         />
         <app-error-msg
           [control]="form.get('endereco.cep')"
