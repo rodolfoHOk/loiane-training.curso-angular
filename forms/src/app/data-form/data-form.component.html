@@ -1,22 +1,14 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="row g-3">
-    <div class="col-sm-12">
-      <label for="nome" class="form-label">Nome</label>
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          id="nome"
-          formControlName="nome"
-          placeholder="Nome Sobrenome"
-          [ngClass]="aplicaCssErro('nome')"
-        />
-        <app-error-msg
-          [control]="form.get('nome')"
-          label="Nome"
-        ></app-error-msg>
-      </div>
-    </div>
+    <app-input-field
+      class="col-sm-12"
+      formControlName="nome"
+      id="nome"
+      label="Nome"
+      placeholder="Nome Sobrenome"
+      [classeCss]="aplicaCssErro('nome')"
+      [control]="form.get('nome')"
+    ></app-input-field>
 
     <div class="col-sm-12">
       <label for="email" class="form-label">E-mail</label>

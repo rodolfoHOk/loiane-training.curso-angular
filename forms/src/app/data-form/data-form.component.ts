@@ -58,7 +58,11 @@ export class DataFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       nome: [
         '',
-        [Validators.required, Validators.minLength(3), Validators.maxLength(5)],
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(35),
+        ],
       ],
       email: [
         '',
