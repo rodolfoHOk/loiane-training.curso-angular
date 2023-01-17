@@ -23,7 +23,7 @@ export class InputFieldComponent implements ControlValueAccessor {
   @Input() type = 'text';
   @Input() placeholder: string = '';
   @Input() classeCss: Object = {};
-  @Input() control: AbstractControl | null = null;
+  @Input() control: AbstractControl | null | undefined = null;
   @Input() isReadOnly = false;
 
   private innerValue: any;

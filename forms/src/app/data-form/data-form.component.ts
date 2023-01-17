@@ -5,18 +5,11 @@ import {
   FormArray,
   FormBuilder,
   FormControl,
-  FormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import {
-  distinctUntilChanged,
-  EMPTY,
-  map,
-  Observable,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { distinctUntilChanged, EMPTY, map, Observable, switchMap } from 'rxjs';
+import { BaseFormComponent } from '../shared/base-form/base-form.component';
 import { FormValidations } from '../shared/form-validations';
 import { Cargo } from '../shared/models/cargo';
 import { EstadoBr } from '../shared/models/estado-br';
@@ -31,8 +24,7 @@ import { VerificaEmailService } from './services/verifica-email.service';
   templateUrl: './data-form.component.html',
   styleUrls: ['./data-form.component.scss'],
 })
-export class DataFormComponent implements OnInit {
-  form!: FormGroup;
+export class DataFormComponent extends BaseFormComponent implements OnInit {
   estados?: Observable<EstadoBr[]>;
 
   cargos: Cargo[] = [];
@@ -46,7 +38,9 @@ export class DataFormComponent implements OnInit {
     private dropdownService: DropdownService,
     private consultaCepService: ConsultaCepService,
     private verificaEmailService: VerificaEmailService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.estados = this.dropdownService.getEstadosBr();
@@ -89,21 +83,14 @@ export class DataFormComponent implements OnInit {
       frameworks: this.buildFrameworks(),
     });
 
-    // this.form
-    //   .get('endereco.cep')
-    //   ?.valueChanges.subscribe((value) =>
-    //     console.log('Valor do CEP: ' + value)
-    //   );
-
     this.form
       .get('endereco.cep')
       ?.statusChanges.pipe(
         distinctUntilChanged(),
-        // tap((status) => console.log('Status do CEP: ' + status)),
         switchMap((status) =>
           status === 'VALID'
             ? this.consultaCepService.consultaCep(
-                this.form.get('endereco.cep')?.value
+                this.form?.get('endereco.cep')?.value
               )
             : EMPTY
         )
@@ -122,43 +109,19 @@ export class DataFormComponent implements OnInit {
   }
 
   getFrameworksFormArray() {
-    return this.form.get('frameworks') as FormArray;
+    return this.form?.get('frameworks') as FormArray;
   }
 
-  aplicaCssErro(campo: string) {
-    return {
-      'is-invalid': this.verificaValidTouched(campo),
-    };
-  }
-
-  verificaValidTouched(campo: string): boolean {
-    return (
-      !this.form.get(campo)?.valid! &&
-      (this.form.get(campo)?.touched! || this.form.get(campo)?.dirty!)
-    );
-  }
-
-  verificaEmailInvalido() {
-    let campoEmail = this.form.get('email');
-    if (campoEmail?.errors) {
-      return (
-        campoEmail?.errors!['email'] && (campoEmail.touched || campoEmail.dirty)
+  validarEmail(control: AbstractControl): ValidationErrors | null {
+    return this.verificaEmailService
+      .verificarEmail(control.value)
+      .pipe(
+        map((emailExiste) => (emailExiste ? { emailInvalido: true } : null))
       );
-    }
-  }
-
-  verificaEmailRequerido() {
-    let campoEmail = this.form.get('email');
-    if (campoEmail?.errors) {
-      return (
-        campoEmail?.errors!['required'] &&
-        (campoEmail.touched || campoEmail.dirty)
-      );
-    }
   }
 
   consultaCep() {
-    let cep = this.form.get('endereco.cep')?.value;
+    let cep = this.form?.get('endereco.cep')?.value;
 
     if (cep && cep !== '') {
       this.resetDadosForm();
@@ -169,8 +132,49 @@ export class DataFormComponent implements OnInit {
     }
   }
 
+  submit() {
+    let submitValue = Object.assign({}, this.form?.value);
+
+    submitValue = Object.assign(submitValue, {
+      frameworks: submitValue.frameworks
+        .map((value: boolean, index: number) =>
+          value ? this.frameworks[index] : null
+        )
+        .filter((v: string) => v !== null),
+    });
+
+    this.http
+      .post('https://httpbin.org/post', JSON.stringify(submitValue))
+      .subscribe({
+        next: (dados) => {
+          console.log(dados);
+          this.reset();
+        },
+        error: (error) => alert(error.message),
+      });
+  }
+
+  setCargo() {
+    const cargo = { nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl' };
+    this.form?.get('cargo')?.setValue(cargo);
+  }
+
+  compararCargos(obj1: Cargo, obj2: Cargo): boolean {
+    return obj1 && obj2
+      ? obj1.nome === obj2.nome && obj1.nivel === obj2.nivel
+      : obj1 === obj2;
+  }
+
+  setTecnologias() {
+    this.form?.get('tecnologias')?.setValue(['java', 'javascript', 'php']);
+  }
+
+  compararTecnologias(obj1: Tecnologia, obj2: Tecnologia): boolean {
+    return obj1 === obj2;
+  }
+
   private populaDadosForm(dados: Endereco) {
-    this.form.patchValue({
+    this.form?.patchValue({
       endereco: {
         complemento: dados.complemento,
         logradouro: dados.logradouro,
@@ -182,7 +186,7 @@ export class DataFormComponent implements OnInit {
   }
 
   private resetDadosForm() {
-    this.form.patchValue({
+    this.form?.patchValue({
       endereco: {
         complemento: '',
         logradouro: '',
@@ -191,72 +195,5 @@ export class DataFormComponent implements OnInit {
         estado: '',
       },
     });
-  }
-
-  onSubmit() {
-    let submitValue = Object.assign({}, this.form.value);
-
-    submitValue = Object.assign(submitValue, {
-      frameworks: submitValue.frameworks
-        .map((value: boolean, index: number) =>
-          value ? this.frameworks[index] : null
-        )
-        .filter((v: string) => v !== null),
-    });
-
-    if (this.form.valid) {
-      this.http
-        .post('https://httpbin.org/post', JSON.stringify(submitValue))
-        .subscribe({
-          next: (dados) => {
-            console.log(dados);
-            this.reset();
-          },
-          error: (error) => alert(error.message),
-        });
-    } else {
-      this.verificaValidationsForm(this.form);
-    }
-  }
-
-  verificaValidationsForm(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach((campo) => {
-      const controle = formGroup.get(campo);
-      controle?.markAsDirty();
-      if (controle instanceof FormGroup) {
-        this.verificaValidationsForm(controle);
-      }
-    });
-  }
-
-  reset() {
-    this.form.reset();
-  }
-
-  setCargo() {
-    const cargo = { nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl' };
-    this.form.get('cargo')?.setValue(cargo);
-  }
-
-  compararCargos(obj1: Cargo, obj2: Cargo): boolean {
-    return obj1 && obj2
-      ? obj1.nome === obj2.nome && obj1.nivel === obj2.nivel
-      : obj1 === obj2;
-  }
-
-  setTecnologias() {
-    this.form.get('tecnologias')?.setValue(['java', 'javascript', 'php']);
-  }
-
-  compararTecnologias(obj1: Tecnologia, obj2: Tecnologia): boolean {
-    return obj1 === obj2;
-  }
-
-  validarEmail(control: AbstractControl): ValidationErrors | null {
-    return this.verificaEmailService
-      .verificarEmail(control.value)
-      .pipe(
-        map((emailExiste) => (emailExiste ? { emailInvalido: true } : null))
-      );
   }
 }

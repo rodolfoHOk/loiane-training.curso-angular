@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form!" (ngSubmit)="onSubmit()">
   <div class="row g-3">
     <app-input-field
       class="col-sm-12"
@@ -7,7 +7,7 @@
       label="Nome"
       placeholder="Nome Sobrenome"
       [classeCss]="aplicaCssErro('nome')"
-      [control]="form.get('nome')"
+      [control]="form?.get('nome')"
     ></app-input-field>
 
     <div class="col-sm-12">
@@ -22,18 +22,18 @@
           [ngClass]="aplicaCssErro('email')"
         />
         <app-error-msg
-          [control]="form.get('email')"
+          [control]="form?.get('email')"
           label="E-mail"
         ></app-error-msg>
         <div
           class="invalid-feedback d-block"
-          *ngIf="form.get('email')?.status === 'PENDING'"
+          *ngIf="form?.get('email')?.status === 'PENDING'"
         >
           Validando email...
         </div>
         <div
           class="valid-feedback d-block"
-          *ngIf="form.get('email')?.status === 'VALID'"
+          *ngIf="form?.get('email')?.status === 'VALID'"
         >
           Email válido
         </div>
@@ -52,7 +52,7 @@
           [ngClass]="aplicaCssErro('confirmarEmail')"
         />
         <app-error-msg
-          [control]="form.get('confirmarEmail')"
+          [control]="form?.get('confirmarEmail')"
           label="Confirmar e-mail"
         ></app-error-msg>
       </div>
@@ -72,7 +72,7 @@
           [ngClass]="aplicaCssErro('endereco.cep')"
         />
         <app-error-msg
-          [control]="form.get('endereco.cep')"
+          [control]="form?.get('endereco.cep')"
           label="CEP"
         ></app-error-msg>
       </div>
@@ -89,7 +89,7 @@
           [ngClass]="aplicaCssErro('endereco.numero')"
         />
         <app-error-msg
-          [control]="form.get('endereco.numero')"
+          [control]="form?.get('endereco.numero')"
           label="Número"
         ></app-error-msg>
       </div>
@@ -119,7 +119,7 @@
           [ngClass]="aplicaCssErro('endereco.logradouro')"
         />
         <app-error-msg
-          [control]="form.get('endereco.logradouro')"
+          [control]="form?.get('endereco.logradouro')"
           label="Logradouro"
         ></app-error-msg>
       </div>
@@ -136,7 +136,7 @@
           [ngClass]="aplicaCssErro('endereco.bairro')"
         />
         <app-error-msg
-          [control]="form.get('endereco.bairro')"
+          [control]="form?.get('endereco.bairro')"
           label="Bairro"
         ></app-error-msg>
       </div>
@@ -153,7 +153,7 @@
           [ngClass]="aplicaCssErro('endereco.cidade')"
         />
         <app-error-msg
-          [control]="form.get('endereco.cidade')"
+          [control]="form?.get('endereco.cidade')"
           label="Cidade"
         ></app-error-msg>
       </div>
@@ -174,7 +174,7 @@
           </option>
         </select>
         <app-error-msg
-          [control]="form.get('endereco.estado')"
+          [control]="form?.get('endereco.estado')"
           label="Estado"
         ></app-error-msg>
       </div>
@@ -250,7 +250,7 @@
         />
         <label class="form-check-label" for="termos">Aceito os termos</label>
         <app-error-msg
-          [control]="form.get('termos')"
+          [control]="form?.get('termos')"
           label="termos"
         ></app-error-msg>
       </div>
@@ -274,7 +274,7 @@
           <label class="form-check-label">{{ frameworks[i] }}</label>
         </div>
         <app-error-msg
-          [control]="form.get('frameworks')"
+          [control]="form?.get('frameworks')"
           label="Frameworks"
         ></app-error-msg>
       </div>

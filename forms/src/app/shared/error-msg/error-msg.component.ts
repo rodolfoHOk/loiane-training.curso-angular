@@ -8,7 +8,7 @@ import { FormValidations } from '../form-validations';
   styleUrls: ['./error-msg.component.scss'],
 })
 export class ErrorMsgComponent implements OnInit {
-  @Input() control: AbstractControl | null = null;
+  @Input() control: AbstractControl | null | undefined = null;
   @Input() label: string = '';
 
   ngOnInit(): void {}
