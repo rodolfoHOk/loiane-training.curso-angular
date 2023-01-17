@@ -8,10 +8,18 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { distinctUntilChanged, EMPTY, map, Observable, switchMap } from 'rxjs';
+import {
+  distinctUntilChanged,
+  EMPTY,
+  map,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { BaseFormComponent } from '../shared/base-form/base-form.component';
 import { FormValidations } from '../shared/form-validations';
 import { Cargo } from '../shared/models/cargo';
+import { Cidade } from '../shared/models/cidade';
 import { EstadoBr } from '../shared/models/estado-br';
 import { Tecnologia } from '../shared/models/tecnologia';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
@@ -25,7 +33,8 @@ import { VerificaEmailService } from './services/verifica-email.service';
   styleUrls: ['./data-form.component.scss'],
 })
 export class DataFormComponent extends BaseFormComponent implements OnInit {
-  estados?: Observable<EstadoBr[]>;
+  estados: EstadoBr[] = [];
+  cidades: Cidade[] = [];
 
   cargos: Cargo[] = [];
   tecnologias: Tecnologia[] = [];
@@ -43,7 +52,9 @@ export class DataFormComponent extends BaseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.estados = this.dropdownService.getEstadosBr();
+    this.dropdownService
+      .getEstadosBr()
+      .subscribe((dados) => (this.estados = dados));
 
     this.cargos = this.dropdownService.getCargos();
     this.tecnologias = this.dropdownService.getTecnologias();
@@ -98,6 +109,17 @@ export class DataFormComponent extends BaseFormComponent implements OnInit {
       .subscribe((dados) =>
         dados ? this.populaDadosForm(dados as Endereco) : {}
       );
+
+    this.form
+      .get('endereco.estado')
+      ?.valueChanges.pipe(
+        map((siglaEstado) =>
+          this.estados?.find((estado) => estado.sigla === siglaEstado)
+        ),
+        map((estado) => (estado ? estado.id : 0)),
+        switchMap((estadoId) => this.dropdownService.getCidades(estadoId))
+      )
+      .subscribe((cidades) => (this.cidades = cidades));
   }
 
   buildFrameworks() {

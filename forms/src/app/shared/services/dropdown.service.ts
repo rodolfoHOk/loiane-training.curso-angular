@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Cargo } from '../models/cargo';
+import { Cidade } from '../models/cidade';
 import { EstadoBr } from '../models/estado-br';
 import { Tecnologia } from '../models/tecnologia';
 
@@ -13,6 +14,16 @@ export class DropdownService {
 
   getEstadosBr(): Observable<EstadoBr[]> {
     return this.http.get<EstadoBr[]>('assets/dados/estados-br.json');
+  }
+
+  getCidades(idEstado: number): Observable<Cidade[]> {
+    return this.http
+      .get<Cidade[]>('assets/dados/cidades.json')
+      .pipe(
+        map((cidades: Cidade[]) =>
+          cidades.filter((cidade) => cidade.estado == idEstado)
+        )
+      );
   }
 
   getCargos(): Cargo[] {

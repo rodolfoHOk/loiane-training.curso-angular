@@ -145,13 +145,17 @@
     <div class="col-md-4">
       <label for="cidade" class="form-label">Cidade</label>
       <div class="form-group">
-        <input
+        <select
           type="text"
-          class="form-control"
+          class="form-select"
           id="cidade"
           formControlName="cidade"
           [ngClass]="aplicaCssErro('endereco.cidade')"
-        />
+        >
+          <option *ngFor="let cidade of cidades" [value]="cidade.nome">
+            {{ cidade.nome }}
+          </option>
+        </select>
         <app-error-msg
           [control]="form?.get('endereco.cidade')"
           label="Cidade"
@@ -169,7 +173,7 @@
           formControlName="estado"
           [ngClass]="aplicaCssErro('endereco.estado')"
         >
-          <option *ngFor="let estado of estados | async" [value]="estado.sigla">
+          <option *ngFor="let estado of estados" [value]="estado.sigla">
             {{ estado.nome }}
           </option>
         </select>
