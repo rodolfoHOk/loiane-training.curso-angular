@@ -1,1 +1,43 @@
-<p>cursos-lista works!</p>
+<div class="card bg-dark text-white mt-3">
+  <div class="card-header d-flex justify-content-between">
+    <div>
+      <h4>Cursos</h4>
+    </div>
+
+    <div>
+      <button type="button" class="btn btn-primary" [routerLink]="['novo']">
+        Novo curso
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <table class="table table-dark table-hover">
+      <thead>
+        <tr>
+          <th class="col-2">#</th>
+          <th class="col-7">Curso</th>
+          <th class="col-3">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let curso of cursos">
+          <td class="col-1">{{ curso.id }}</td>
+          <td class="col-7">{{ curso.nome }}</td>
+          <td class="col-4">
+            <button type="button" class="btn btn-outline-warning btn-sm mb-1">
+              Atualizar
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-sm ms-1 mb-1"
+            >
+              Remover
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
