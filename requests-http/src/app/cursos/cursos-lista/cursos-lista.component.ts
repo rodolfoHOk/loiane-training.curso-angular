@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { catchError, EMPTY, Observable, Subject } from 'rxjs';
 import { Curso } from '../cursos';
 import { CursosService } from '../cursos.service';
 
@@ -8,21 +8,34 @@ import { CursosService } from '../cursos.service';
   templateUrl: './cursos-lista.component.html',
   styleUrls: ['./cursos-lista.component.scss'],
 })
-export class CursosListaComponent implements OnInit, OnDestroy {
-  // subscription?: Subscription;
-  // cursos?: Curso[];
+export class CursosListaComponent implements OnInit {
   cursos$?: Observable<Curso[]>;
+  error$ = new Subject<boolean>();
 
   constructor(private service: CursosService) {}
 
   ngOnInit(): void {
-    // this.subscription = this.service
-    //   .list()
-    //   .subscribe((data) => (this.cursos = data));
-    this.cursos$ = this.service.list();
+    this.onRefresh();
   }
 
-  ngOnDestroy(): void {
-    // this.subscription?.unsubscribe();
+  onRefresh() {
+    this.cursos$ = this.service.list().pipe(
+      catchError((error) => {
+        console.error(error);
+        this.error$.next(true);
+        return EMPTY;
+      })
+    );
+
+    // Outra maneira de capturar erros:
+    // this.service.list().subscribe({
+    //   next: (dados) => {
+    //     console.log(dados);
+    //   },
+    //   error: (error) => {
+    //     console.error(error);
+    //   },
+    //   complete: () => console.log('Observable completo'),
+    // });
   }
 }
