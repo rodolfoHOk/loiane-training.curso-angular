@@ -37,9 +37,14 @@
           <td class="col-1">{{ curso.id }}</td>
           <td class="col-7">{{ curso.nome }}</td>
           <td class="col-4">
-            <button type="button" class="btn btn-outline-warning btn-sm mb-1">
+            <button
+              type="button"
+              class="btn btn-outline-warning btn-sm mb-1"
+              (click)="onEdit(curso.id!)"
+            >
               Atualizar
             </button>
+
             <button
               type="button"
               class="btn btn-outline-danger btn-sm ms-1 mb-1"

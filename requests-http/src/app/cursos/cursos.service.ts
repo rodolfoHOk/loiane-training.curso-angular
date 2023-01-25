@@ -18,6 +18,12 @@ export class CursosService {
       .pipe(delay(2000), tap(console.log));
   }
 
+  findById(id: number) {
+    return this.http
+      .get<Curso>(`${this.apiUrl}/${id}`)
+      .pipe(take(1), tap(console.log));
+  }
+
   create(curso: Curso) {
     return this.http.post<Curso>(`${this.apiUrl}`, curso).pipe(take(1));
   }

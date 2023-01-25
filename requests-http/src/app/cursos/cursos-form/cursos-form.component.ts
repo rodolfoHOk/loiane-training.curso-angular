@@ -1,7 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { map, switchMap } from 'rxjs';
+
 import { AlertModalService } from 'src/app/shared/alert-modal.service';
+import { Curso } from '../cursos';
 import { CursosService } from '../cursos.service';
 
 @Component({
@@ -17,11 +21,32 @@ export class CursosFormComponent implements OnInit {
     private fb: FormBuilder,
     private service: CursosService,
     private alertService: AlertModalService,
-    private location: Location
+    private location: Location,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    // this.activatedRoute.params.subscribe((params) => {
+    //   const id = params['id'];
+    //   const curso$ = this.service.findById(id);
+    //   curso$.subscribe((curso) => this.updateForm(curso));
+    // });
+
+    this.activatedRoute.params
+      .pipe(
+        map((params) => params['id']),
+        switchMap((id) => this.service.findById(id))
+        // switchMap((curso) => this.aulasService.obterAulas(curso.id))
+      )
+      .subscribe((curso) => this.updateForm(curso));
+
+    // Outros operadores do RxJS
+    // concatMap => ordem da requisição importa
+    // mergeMap => ordem não importa
+    // exhaustMap => aguarda uma requisição acabar para iniciar a próxima
+
     this.form = this.fb.group({
+      id: [null],
       nome: [
         null,
         [
@@ -30,6 +55,13 @@ export class CursosFormComponent implements OnInit {
           Validators.maxLength(250),
         ],
       ],
+    });
+  }
+
+  updateForm(curso: Curso) {
+    this.form.patchValue({
+      id: curso.id,
+      nome: curso.nome,
     });
   }
 
