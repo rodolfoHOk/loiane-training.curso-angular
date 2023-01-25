@@ -17,31 +17,13 @@
         id="nome"
         placeholder="Nome do curso"
         formControlName="nome"
-        [ngClass]="{ 'is-invalid': submitted && hasError('nome') }"
+        [ngClass]="applyCssError('nome')"
       />
 
-      <div
-        class="invalid-feedback"
-        *ngIf="hasError('nome') && hasError('nome')!['required']"
-      >
-        Por favor informe um nome para o curso.
-      </div>
-
-      <div
-        class="invalid-feedback"
-        *ngIf="hasError('nome') && hasError('nome')!['minlength']"
-      >
-        Nome do curso precisa ter no mínimo
-        {{ hasError("nome")!["minlength"].requiredLength }} caracteres.
-      </div>
-
-      <div
-        class="invalid-feedback"
-        *ngIf="hasError('nome') && hasError('nome')!['maxlength']"
-      >
-        Nome do curso deve ter no máximo
-        {{ hasError("nome")!["maxlength"].requiredLength }} caracteres.
-      </div>
+      <app-field-error-msg
+        [control]="getField('nome')"
+        label="Nome do curso"
+      ></app-field-error-msg>
     </div>
 
     <div class="mt-3 d-flex gap-3">
