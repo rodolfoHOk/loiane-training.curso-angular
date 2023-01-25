@@ -11,6 +11,26 @@
     {
       "id": 3,
       "nome": "Typescript"
+    },
+    {
+      "nome": "Angular Material",
+      "id": 4
+    },
+    {
+      "nome": "BootStrap 5",
+      "id": 5
+    },
+    {
+      "nome": "POO com Java",
+      "id": 6
+    },
+    {
+      "nome": "Javascript",
+      "id": 7
+    },
+    {
+      "nome": "HTML",
+      "id": 8
     }
   ]
 }
