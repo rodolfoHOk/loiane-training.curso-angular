@@ -11,7 +11,6 @@ import { CursosService } from '../cursos.service';
 })
 export class CursosListaComponent implements OnInit {
   cursos$?: Observable<Curso[]>;
-  error$ = new Subject<boolean>();
 
   constructor(
     private service: CursosService,
