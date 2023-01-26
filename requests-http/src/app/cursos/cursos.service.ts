@@ -31,6 +31,10 @@ export class CursosService {
     return this.create(curso);
   }
 
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`).pipe(take(1));
+  }
+
   private create(curso: Curso): Observable<Curso> {
     return this.http.post<Curso>(`${this.apiUrl}`, curso).pipe(take(1));
   }

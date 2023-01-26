@@ -48,6 +48,7 @@
             <button
               type="button"
               class="btn btn-outline-danger btn-sm ms-1 mb-1"
+              (click)="onDelete(curso)"
             >
               Remover
             </button>
@@ -61,3 +62,17 @@
     </ng-template>
   </div>
 </div>
+
+<ng-template #deleteModal>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja remover este curso?</p>
+
+    <button type="button" class="btn btn-default" (click)="onDeleteConfirm()">
+      Sim
+    </button>
+
+    <button type="button" class="btn btn-primary" (click)="onDeleteCancel()">
+      Não
+    </button>
+  </div>
+</ng-template>

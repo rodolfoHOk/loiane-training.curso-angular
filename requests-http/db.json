@@ -21,10 +21,6 @@
       "nome": "Bootstrap 5"
     },
     {
-      "id": 6,
-      "nome": "Programação Orientada a Objeto com Java"
-    },
-    {
       "nome": "Javascript",
       "id": 7
     },
@@ -35,10 +31,6 @@
     {
       "id": 9,
       "nome": "CSS"
-    },
-    {
-      "id": 10,
-      "nome": "Teste unitários com Junit 5 (Jupiter)"
     }
   ]
 }
