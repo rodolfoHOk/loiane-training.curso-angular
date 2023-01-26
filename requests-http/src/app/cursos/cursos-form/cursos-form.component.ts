@@ -69,40 +69,6 @@ export class CursosFormComponent implements OnInit {
           this.alertService.showAlertDanger(errorMsg);
         },
       });
-
-      // if (this.form.value.id) {
-      //   this.service.update(this.form.value).subscribe({
-      //     next: (success) => {
-      //       console.log(success);
-      //       this.alertService.showAlertSuccess('Curso atualizado com sucesso.');
-      //       this.location.back();
-      //     },
-      //     error: (error) => {
-      //       console.error(error);
-      //       this.alertService.showAlertDanger(
-      //         'Erro ao atualizar curso. Tente novamente.'
-      //       );
-      //     },
-      //     complete: () =>
-      //       console.log('Requisição de atualização de curso completada'),
-      //   });
-      // } else {
-      //   this.service.create(this.form.value).subscribe({
-      //     next: (success) => {
-      //       console.log(success);
-      //       this.alertService.showAlertSuccess('Curso criado com sucesso.');
-      //       this.location.back();
-      //     },
-      //     error: (error) => {
-      //       console.error(error);
-      //       this.alertService.showAlertDanger(
-      //         'Erro ao criar curso. Tente novamente.'
-      //       );
-      //     },
-      //     complete: () =>
-      //       console.log('Requisição de criação de curso completada'),
-      //   });
-      // }
     } else {
       this.verificaValidationsForm(this.form);
     }
