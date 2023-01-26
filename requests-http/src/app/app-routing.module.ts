@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CursosRoutingModule } from './cursos/cursos-routing.module';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'cursos' },
+  { path: '', pathMatch: 'full', redirectTo: 'upload' },
   {
     path: 'cursos',
     loadChildren: () =>
