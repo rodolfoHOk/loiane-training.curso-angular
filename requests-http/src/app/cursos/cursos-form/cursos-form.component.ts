@@ -2,10 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs';
 
 import { AlertModalService } from 'src/app/shared/alert-modal.service';
-import { Curso } from '../cursos';
 import { CursosService } from '../cursos.service';
 
 @Component({
@@ -54,21 +52,57 @@ export class CursosFormComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.form?.valid) {
-      this.service.create(this.form.value).subscribe({
-        next: (success) => {
-          console.log(success);
-          this.alertService.showAlertSuccess('Curso criado com sucesso.');
-          this.reset();
+      let successMsg = 'Curso criado com sucesso.';
+      let errorMsg = 'Erro ao criar curso. Tente novamente.';
+
+      if (this.form.value.id) {
+        successMsg = 'Curso atualizado com sucesso.';
+        errorMsg = 'Erro ao atualizar curso. Tente novamente.';
+      }
+
+      this.service.save(this.form.value).subscribe({
+        next: () => {
+          this.alertService.showAlertSuccess(successMsg);
           this.location.back();
         },
-        error: (error) => {
-          console.error(error);
-          this.alertService.showAlertDanger(
-            'Erro ao criar curso. Tente novamente.'
-          );
+        error: () => {
+          this.alertService.showAlertDanger(errorMsg);
         },
-        complete: () => console.log('Requisição completada'),
       });
+
+      // if (this.form.value.id) {
+      //   this.service.update(this.form.value).subscribe({
+      //     next: (success) => {
+      //       console.log(success);
+      //       this.alertService.showAlertSuccess('Curso atualizado com sucesso.');
+      //       this.location.back();
+      //     },
+      //     error: (error) => {
+      //       console.error(error);
+      //       this.alertService.showAlertDanger(
+      //         'Erro ao atualizar curso. Tente novamente.'
+      //       );
+      //     },
+      //     complete: () =>
+      //       console.log('Requisição de atualização de curso completada'),
+      //   });
+      // } else {
+      //   this.service.create(this.form.value).subscribe({
+      //     next: (success) => {
+      //       console.log(success);
+      //       this.alertService.showAlertSuccess('Curso criado com sucesso.');
+      //       this.location.back();
+      //     },
+      //     error: (error) => {
+      //       console.error(error);
+      //       this.alertService.showAlertDanger(
+      //         'Erro ao criar curso. Tente novamente.'
+      //       );
+      //     },
+      //     complete: () =>
+      //       console.log('Requisição de criação de curso completada'),
+      //   });
+      // }
     } else {
       this.verificaValidationsForm(this.form);
     }

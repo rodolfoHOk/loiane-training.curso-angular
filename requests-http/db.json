@@ -17,20 +17,28 @@
       "id": 4
     },
     {
-      "nome": "BootStrap 5",
-      "id": 5
+      "id": 5,
+      "nome": "Bootstrap 5"
     },
     {
-      "nome": "POO com Java",
-      "id": 6
+      "id": 6,
+      "nome": "Programação Orientada a Objeto com Java"
     },
     {
       "nome": "Javascript",
       "id": 7
     },
     {
-      "nome": "HTML",
-      "id": 8
+      "id": 8,
+      "nome": "HTML"
+    },
+    {
+      "id": 9,
+      "nome": "CSS"
+    },
+    {
+      "id": 10,
+      "nome": "Teste unitários com Junit 5 (Jupiter)"
     }
   ]
 }
