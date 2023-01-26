@@ -16,6 +16,13 @@ const routes: Routes = [
         (m) => m.UnsubscribeRxjsModule
       ),
   },
+  {
+    path: 'upload',
+    loadChildren: () =>
+      import('./upload-file/upload-file.module').then(
+        (m) => m.UploadFileModule
+      ),
+  },
 ];
 
 @NgModule({

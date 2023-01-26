@@ -1,0 +1,18 @@
+<div class="card bg-dark text-white mt-4 py-3">
+  <div class="card-header">
+    <h3>Upload de Arquivos</h3>
+  </div>
+
+  <div class="card-body">
+    <div>
+      <label for="formFile" class="form-label">Selecione um arquivo</label>
+      <input
+        class="form-control"
+        type="file"
+        id="formFile"
+        (change)="onChange($event)"
+        multiple
+      />
+    </div>
+  </div>
+</div>
