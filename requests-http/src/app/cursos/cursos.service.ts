@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Curso } from './cursos';
-import { delay, take, tap } from 'rxjs';
+import { delay, Observable, take, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,19 +12,19 @@ export class CursosService {
 
   constructor(private http: HttpClient) {}
 
-  list() {
+  list(): Observable<Curso[]> {
     return this.http
       .get<Curso[]>(`${this.apiUrl}`)
       .pipe(delay(2000), tap(console.log));
   }
 
-  findById(id: number) {
+  findById(id: number): Observable<Curso> {
     return this.http
       .get<Curso>(`${this.apiUrl}/${id}`)
       .pipe(take(1), tap(console.log));
   }
 
-  create(curso: Curso) {
+  create(curso: Curso): Observable<Curso> {
     return this.http.post<Curso>(`${this.apiUrl}`, curso).pipe(take(1));
   }
 }

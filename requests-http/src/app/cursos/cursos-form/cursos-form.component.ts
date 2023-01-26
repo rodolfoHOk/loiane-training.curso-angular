@@ -26,42 +26,18 @@ export class CursosFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.activatedRoute.params.subscribe((params) => {
-    //   const id = params['id'];
-    //   const curso$ = this.service.findById(id);
-    //   curso$.subscribe((curso) => this.updateForm(curso));
-    // });
-
-    this.activatedRoute.params
-      .pipe(
-        map((params) => params['id']),
-        switchMap((id) => this.service.findById(id))
-        // switchMap((curso) => this.aulasService.obterAulas(curso.id))
-      )
-      .subscribe((curso) => this.updateForm(curso));
-
-    // Outros operadores do RxJS
-    // concatMap => ordem da requisição importa
-    // mergeMap => ordem não importa
-    // exhaustMap => aguarda uma requisição acabar para iniciar a próxima
+    const curso = this.activatedRoute.snapshot.data['curso'];
 
     this.form = this.fb.group({
-      id: [null],
+      id: [curso.id],
       nome: [
-        null,
+        curso.nome,
         [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(250),
         ],
       ],
-    });
-  }
-
-  updateForm(curso: Curso) {
-    this.form.patchValue({
-      id: curso.id,
-      nome: curso.nome,
     });
   }
 
