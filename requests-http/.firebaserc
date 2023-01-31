@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "curso-angular-rudolf": {
+      "hosting": {
+        "requests-http": [
+          "curso-angular-rudolf"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "curso-angular-rudolf"
+  }
+}
