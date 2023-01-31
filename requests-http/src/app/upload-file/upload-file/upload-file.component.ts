@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { filterResponse, uploadProgress } from 'src/app/shared/rxjs-operators';
 import { environment } from 'src/environments/environment';
+import { DownloadFileService } from '../download-file.service';
 import { UploadFileService } from '../upload-file.service';
 
 @Component({
@@ -15,7 +16,10 @@ export class UploadFileComponent implements OnDestroy {
 
   sub?: Subscription;
 
-  constructor(private service: UploadFileService) {}
+  constructor(
+    private upService: UploadFileService,
+    private downService: DownloadFileService
+  ) {}
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
@@ -34,7 +38,7 @@ export class UploadFileComponent implements OnDestroy {
 
   onUpload() {
     if (this.files.size > 0) {
-      this.sub = this.service
+      this.sub = this.upService
         .upload(this.files, `${environment.BASE_URL}/upload`)
         .pipe(
           uploadProgress((progress) => {
@@ -44,5 +48,21 @@ export class UploadFileComponent implements OnDestroy {
         )
         .subscribe((response) => console.log('Upload concluído'));
     }
+  }
+
+  onDownloadExcel() {
+    this.downService
+      .download(`${environment.BASE_URL}/downloads/excel`)
+      .subscribe((response: any) => {
+        this.downService.handleFile(response, 'fake-report.xlsx');
+      });
+  }
+
+  onDownloadPDF() {
+    this.downService
+      .download(`${environment.BASE_URL}/downloads/pdf`)
+      .subscribe((response: any) => {
+        this.downService.handleFile(response, 'fake-report.pdf');
+      });
   }
 }

@@ -14,6 +14,14 @@ app.post('/upload', multipartMiddleware, (req, res) => {
   res.json({ message: files });
 });
 
+app.get('/downloads/excel', (req, res) => {
+  res.download('./downloads/fake-report.xlsx');
+});
+
+app.get('/downloads/pdf', (req, res) => {
+  res.download('./downloads/fake-report.pdf');
+});
+
 app.use((err, req, res, next) => res.json({ error: err.message }));
 
 app.listen('8000', () => console.log('Server running on port 8000'));
