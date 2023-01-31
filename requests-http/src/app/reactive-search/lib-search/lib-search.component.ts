@@ -1,7 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, Observable, tap } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs';
 
 interface CDNResponse {
   results: CDNResult[];
@@ -22,7 +30,7 @@ interface CDNResult {
   templateUrl: './lib-search.component.html',
   styleUrls: ['./lib-search.component.scss'],
 })
-export class LibSearchComponent {
+export class LibSearchComponent implements OnInit {
   readonly SEARCH_URL = 'https://api.cdnjs.com/libraries';
 
   queryField = new FormControl();
@@ -30,24 +38,44 @@ export class LibSearchComponent {
   results$?: Observable<CDNResult[]>;
   total?: number;
 
+  readonly FIELDS = 'name,description,version,homepage';
+
   constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.results$ = this.queryField.valueChanges.pipe(
+      map((value) => value.trim()),
+      filter((value) => value.length > 1),
+      debounceTime(300),
+      distinctUntilChanged(),
+      // tap((value) => console.log(value)),
+      switchMap((value) =>
+        this.http.get<CDNResponse>(this.SEARCH_URL, {
+          params: {
+            search: value,
+            fields: this.FIELDS,
+          },
+        })
+      ),
+      tap((res) => (this.total = res.total)),
+      map((res) => res.results)
+    );
+  }
 
   onSearch() {
     let searchValue = this.queryField.value;
-
-    const fields = 'name,description,version,homepage';
 
     if (searchValue && (searchValue = searchValue.trim()) !== '') {
       // opção 1: menos dinâmico
       const params_ = {
         search: searchValue,
-        fields,
+        fields: this.FIELDS,
       };
 
       // opção 2: mais dinâmico
       let params = new HttpParams();
       params = params.set('search', searchValue);
-      params = params.set('fields', fields);
+      params = params.set('fields', this.FIELDS);
 
       this.results$ = this.http
         .get<CDNResponse>(this.SEARCH_URL, {
